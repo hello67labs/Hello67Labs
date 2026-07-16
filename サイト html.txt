@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Line BreakEven (MT5) - Created by 67Labs</title>
+    <style>
+        /* --- パステル調のやわらかい配色デザイン（CSS） --- */
+        :root {
+            --bg-color: #fbf8f5;        /* 温かみのあるオフホワイト */
+            --primary: #ffb7b2;         /* 優しいパステルピンク */
+            --primary-hover: #ff9a93;   /* 少し濃いピンク */
+            --secondary: #e2f0cb;       /* さわやかなパステルミント */
+            --text-main: #5d5755;       /* やわらかいダークブラウン（黒の代わりに） */
+            --text-sub: #8a817c;        /* 優しいグレーブラウン */
+            --card-bg-1: #ffdac1;       /* パステルオレンジ */
+            --card-bg-2: #e2f0cb;       /* パステルミント */
+            --card-bg-3: #b5ead7;       /* パステルグリーン */
+            --shadow: 0 8px 24px rgba(224, 204, 190, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, #ffe5ec 0%, #f0f4f8 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 3px dashed #fff;
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background-color: #fff;
+            color: var(--text-sub);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: #4a4e69;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            margin-bottom: 35px;
+        }
+
+        /* ダウンロードボタン */
+        .btn-download {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 16px 38px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 20px rgba(255, 183, 178, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 183, 178, 0.6);
+        }
+
+        /* コンテンツエリア */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* セクションタイトル */
+        h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #4a4e69;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 機能特徴グリッド */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 70px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border-top: 6px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card:nth-child(2) { border-top-color: var(--card-bg-1); }
+        .feature-card:nth-child(3) { border-top-color: var(--card-bg-2); }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            color: #4a4e69;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+        }
+
+        /* 導入方法セクション */
+        .steps-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            background-color: var(--secondary);
+            color: #5d5755;
+            font-weight: bold;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-text h4 {
+            font-size: 1.05rem;
+            color: #4a4e69;
+            margin-bottom: 4px;
+        }
+
+        .step-text p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f0edf5;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            border-top: 1px solid #e0dbe3;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 600px) {
+            header { padding: 50px 15px; }
+            h1 { font-size: 1.8rem; }
+            .container { padding: 40px 15px; }
+            .steps-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダーエリア -->
+    <header>
+        <span class="brand-badge">Created by 67Labs</span>
+        <h1>3Line BreakEven for MT5</h1>
+        <p class="tagline">BUY / SELL / ALL（全体）の損益分岐点をビジュアル化し、あなたの両建てトレードを強力サポート</p>
+        
+        <!-- ★ここにダウンロードリンクを貼ります -->
+        <a href="インジケーターのファイルのURL" class="btn-download" download>
+            📥 無料ダウンロード (v1.0.0)
+        </a>
+    </header>
+
+    <div class="container">
+        
+        <!-- 機能紹介セクション -->
+        <section>
+            <h2>このツールでできること</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>往復手数料を含めた正確なBE</h3>
+                    <p>パラメーターから「片道の手数料」を入力するだけで、スプレッド以外の実質コストを含めた超精密な損益分岐点を自動で算出し、ラインとして描画します。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>両建て解除時の「残像」表示</h3>
+                    <p>買い・売り双方のポジションが相殺されている時だけ全体のBE（ALL）ラインをアクティブに表示。両建てが解除された瞬間、最後の相殺位置に「残像（ドットライン）」を固定します。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>お好みの配色にカスタマイズ</h3>
+                    <p>利益状態・損失状態・残像（グレーアウト）時の表示色を、MT5のパラメーター設定画面からいつでもパステル調やお好みのテーマカラーに変更できます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 導入手順セクション -->
+        <section class="steps-box">
+            <h2>インジケーターの設定手順</h2>
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <h4>ファイルをダウンロード</h4>
+                    <p>上記のボタンからインジケーターのファイル（.mq5 または .ex5）をパソコンに保存します。</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <h4>MT5のデータフォルダを開く</h4>
+                    <p>MT5を起動し、メニューの「ファイル」 ＞ 「データフォルダを開く」をクリックします。</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <h4>ファイルをフォルダに配置</h4>
+                    <p>開いたフォルダ内の「MQL5」 ＞ 「Indicators」を開き、そこにダウンロードしたファイルをドラッグ＆ドロップで入れます。</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <h4>MT5でインジケーターを適用</h4>
+                    <p>MT5に戻り、ナビゲーターウインドウ内を右クリックして「更新」を押します。リストに追加された「BreakEven 3Line Display」をチャートにドラッグすれば完了です！</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2026 67Labs. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
