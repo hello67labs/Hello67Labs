@@ -287,8 +287,8 @@
         <p class="subtitle">損益分岐点をスマートに視覚化。もっと直感的に。</p>
         
         <div class="cta-container">
-            <!-- ファイルリンクはお好みで変更してください -->
-            <a href="BreakEven_3Line.mq5" class="btn-download" download>
+            <!-- 👇 【重要】ここの href の中身を、GitHubで取得した直接ダウンロード用URLに書き換えてください！ -->
+            <a href="ここにコピーしたダウンロード用URLを貼り付ける" class="btn-download" download>
                 <svg viewBox="0 0 24 24">
                     <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
                 </svg>
@@ -353,34 +353,34 @@
 
     </div>
 
+    <!-- お問い合わせセクション -->
+    <section class="contact-section" style="padding: 60px 20px; background-color: #f7f9fc; text-align: center;">
+        <div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h2 style="color: #333; margin-bottom: 10px; font-size: 1.5rem;">お問い合わせ</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
+            
+            <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
+                    <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" style="background-color: #4a90e2; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 10px; transition: background 0.2s;">送信する</button>
+            </form>
+        </div>
+    </section>
+
     <!-- フッター -->
     <footer>
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
-    <!-- お問い合わせセクション -->
-<section class="contact-section" style="padding: 60px 20px; background-color: #f7f9fc; text-align: center;">
-    <div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-        <h2 style="color: #333; margin-bottom: 10px; font-size: 1.5rem;">お問い合わせ</h2>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
-        
-        <!-- コピーしたFormspreeのURLを下の action="..." に貼り付けます -->
-        <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
-            <div>
-                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
-                <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
-            </div>
-            <div>
-                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
-                <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
-            </div>
-            <div>
-                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
-                <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
-            </div>
-            <button type="submit" style="background-color: #4a90e2; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 10px; transition: background 0.2s;">送信する</button>
-        </form>
-    </div>
-</section>
 </body>
 </html>
