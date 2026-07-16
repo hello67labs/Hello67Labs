@@ -236,13 +236,26 @@
             <div class="logo-area">
                 <span class="brand-logo">67Labs Tools</span>
             </div>
-            <h1>Gold Compound Calculator</h1>
-            <p class="subtitle">ゴールド（XAU/USD）実効レバレッジ維持型・複利計算ツール</p>
+            <h1>Compound Calculator</h1>
+            <p class="subtitle">実効レバレッジ維持型・複利計算シミュレーター</p>
         </header>
 
         <!-- 計算カード -->
         <div class="calc-card">
             <div class="grid-inputs">
+                <!-- 取引銘柄 -->
+                <div class="input-group">
+                    <label>取引銘柄</label>
+                    <select id="currency" onchange="updateDefaultValues()">
+                        <option value="GOLD">GOLD / XAUUSD (ゴールド)</option>
+                        <option value="USDJPY">USD/JPY (ドル円)</option>
+                        <option value="EURUSD">EUR/USD (ユーロドル)</option>
+                        <option value="GBPUSD">GBP/USD (ポンドドル)</option>
+                        <option value="EURJPY">EUR/JPY (ユーロ円)</option>
+                        <option value="GBPJPY">GBPJPY (ポンド円)</option>
+                    </select>
+                </div>
+
                 <!-- 当初資金 -->
                 <div class="input-group">
                     <label>当初資金 (円)</label>
@@ -275,14 +288,14 @@
 
                 <!-- 通貨単位 -->
                 <div class="input-group">
-                    <label>通貨単位 (0.01t=100)</label>
+                    <label id="unitLabel">契約サイズ (0.01t=100)</label>
                     <input type="number" id="contractSize" value="100">
                 </div>
 
-                <!-- ゴールド現在価格 -->
+                <!-- 銘柄の現在価格 -->
                 <div class="input-group">
-                    <label>ゴールド現在価格 (USD)</label>
-                    <input type="number" id="goldPrice" value="4060.00" step="0.01">
+                    <label id="priceLabel">現在価格 (USD)</label>
+                    <input type="number" id="currentPrice" value="4060.00" step="0.001">
                 </div>
 
                 <!-- ドル円現在レート -->
@@ -297,7 +310,7 @@
 
         <!-- 結果テーブル -->
         <div class="table-container">
-            <div class="table-title">📈 15日間の複利運用計画</div>
+            <div class="table-title" id="tableTitle">📈 1ヶ月（20日間）の複利運用計画</div>
             <table>
                 <thead>
                     <tr>
@@ -327,63 +340,118 @@
     </div>
 
     <script>
+        // 銘柄ごとのデフォルト値（レート等）
+        const defaults = {
+            GOLD:   { unit: 100,    price: 4060.00, label: "価格 (USD)", unitLabel: "契約サイズ (1Lot=100oz)" },
+            USDJPY: { unit: 100000, price: 150.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            EURUSD: { unit: 100000, price: 1.080,   label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            GBPUSD: { unit: 100000, price: 1.280,   label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            EURJPY: { unit: 100000, price: 162.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            GBPJPY: { unit: 100000, price: 192.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" }
+        };
+
+        // 銘柄を切り替えたら、入力欄の初期値やラベルを自動調整する
+        function updateDefaultValues() {
+            const currency = document.getElementById('currency').value;
+            const data = defaults[currency];
+            
+            document.getElementById('contractSize').value = data.unit;
+            document.getElementById('currentPrice').value = data.price;
+            document.getElementById('priceLabel').innerText = data.label;
+            document.getElementById('unitLabel').innerText = data.unitLabel;
+
+            // 切り替えたと同時に再計算
+            generateTable();
+        }
+
         function generateTable() {
             // パラメータ取得
+            const currency = document.getElementById('currency').value;
             const initBalance = parseFloat(document.getElementById('initBalance').value) || 0;
             const targetLev = parseFloat(document.getElementById('targetLev').value) || 0;
             const riskPct = parseFloat(document.getElementById('riskPct').value) || 0;
             const targetPips = parseFloat(document.getElementById('targetPips').value) || 0;
             const maxLots = parseFloat(document.getElementById('maxLots').value) || 0;
-            const contractSize = parseFloat(document.getElementById('contractSize').value) || 100;
-            const goldPrice = parseFloat(document.getElementById('goldPrice').value) || 0;
+            const contractSize = parseFloat(document.getElementById('contractSize').value) || 100000;
+            const currentPrice = parseFloat(document.getElementById('currentPrice').value) || 0;
             const usdjpyRate = parseFloat(document.getElementById('usdjpyRate').value) || 0;
 
             const tbody = document.getElementById('resultBody');
             tbody.innerHTML = ''; // クリア
 
+            document.getElementById('tableTitle').innerText = `📈 ${currency}：1ヶ月（20日間）の複利運用計画`;
+
             let currentBalance = initBalance;
 
-            for (let day = 1; day <= 15; day++) {
-                // 1. 枚数（ロット数）の計算
-                // 計算式：(運用資金 * 維持レバレッジ) / (ゴールド価格 * 通貨単位 * ドル円)
+            // ★きっちり「20日間」のループに拡張！
+            for (let day = 1; day <= 20; day++) {
+                
+                // 1. ロット数（枚数）の計算
                 let calculatedLots = 0;
-                if (goldPrice > 0 && usdjpyRate > 0) {
-                    calculatedLots = (currentBalance * targetLev) / (goldPrice * contractSize * usdjpyRate);
-                    // 枚数上限（ロット上限）を適用
-                    if (calculatedLots > maxLots) {
-                        calculatedLots = maxLots;
+                if (currentPrice > 0) {
+                    if (currency === "GOLD") {
+                        // ゴールド： (資金 * レバ) / (ゴールド価格 * 100 * ドル円)
+                        calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
+                    } else if (currency.endsWith("JPY")) {
+                        // クロス円 (USDJPY, EURJPY, GBPJPY)： (資金 * レバ) / (通貨価格 * 10万)
+                        calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize);
+                    } else {
+                        // ドルストレート (EURUSD, GBPUSD)： (資金 * レバ) / (通貨価格 * 10万 * ドル円)
+                        calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
                     }
-                    // MT5用に小数第2位（0.01刻み）で切り捨て処理
+
+                    // ロット上限適用
+                    if (calculatedLots > maxLots) calculatedLots = maxLots;
+                    
+                    // MT5用に小数第2位で切り捨て
                     calculatedLots = Math.floor(calculatedLots * 100) / 100;
-                    if (calculatedLots < 0.01) calculatedLots = 0.01; // 最低ロット
+                    if (calculatedLots < 0.01) calculatedLots = 0.01;
                 }
 
                 // 2. 1日の利益（円）の計算
-                // 計算式：ロット数 * 通貨単位 * (獲得pips * 0.1) * ドル円
-                // （※ゴールドは0.1ドル＝1pip想定）
-                const dailyProfit = calculatedLots * contractSize * (targetPips * 0.1) * usdjpyRate;
+                let dailyProfit = 0;
+                if (currency === "GOLD") {
+                    // ゴールド：1pip = 0.1ドル幅
+                    dailyProfit = calculatedLots * contractSize * (targetPips * 0.1) * usdjpyRate;
+                } else if (currency.endsWith("JPY")) {
+                    // クロス円：1pip = 0.01円幅
+                    dailyProfit = calculatedLots * contractSize * (targetPips * 0.01);
+                } else {
+                    // ドルストレート：1pip = 0.0001ドル幅
+                    dailyProfit = calculatedLots * contractSize * (targetPips * 0.0001) * usdjpyRate;
+                }
 
                 // 3. 翌日の運用資金
                 const nextBalance = currentBalance + dailyProfit;
 
-                // 4. 明日の損切り額
-                // 計算式：運用資金（利益獲得後） * 許容リスク%
+                // 4. 明日の損切り額 (利益確定後の運用資金に対するリスク%)
                 const stopLossAmount = nextBalance * (riskPct / 100);
 
-                // 5. 損切りpips
-                // 計算式：明日の損切り額 / (明日の枚数 * 通貨単位 * 0.1 * ドル円)
-                // ※ここでは「明日の枚数」を、翌日の資金ベースで再計算したロット数に設定します
-                let nextDayLots = (nextBalance * targetLev) / (goldPrice * contractSize * usdjpyRate);
+                // 5. 損切りpipsの計算（翌日のロットベースで逆算）
+                let nextDayLots = 0;
+                if (currency === "GOLD") {
+                    nextDayLots = (nextBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
+                } else if (currency.endsWith("JPY")) {
+                    nextDayLots = (nextBalance * targetLev) / (currentPrice * contractSize);
+                } else {
+                    nextDayLots = (nextBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
+                }
                 if (nextDayLots > maxLots) nextDayLots = maxLots;
                 nextDayLots = Math.floor(nextDayLots * 100) / 100;
                 if (nextDayLots < 0.01) nextDayLots = 0.01;
 
                 let stopLossPips = 0;
                 if (nextDayLots > 0) {
-                    stopLossPips = stopLossAmount / (nextDayLots * contractSize * 0.1 * usdjpyRate);
+                    if (currency === "GOLD") {
+                        stopLossPips = stopLossAmount / (nextDayLots * contractSize * 0.1 * usdjpyRate);
+                    } else if (currency.endsWith("JPY")) {
+                        stopLossPips = stopLossAmount / (nextDayLots * contractSize * 0.01);
+                    } else {
+                        stopLossPips = stopLossAmount / (nextDayLots * contractSize * 0.0001 * usdjpyRate);
+                    }
                 }
 
-                // 表に1行追加
+                // テーブルへ行追加
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td><b>${day}日目</b></td>
@@ -395,13 +463,13 @@
                 `;
                 tbody.appendChild(row);
 
-                // 翌日の計算用資金を更新
+                // 資金を翌日に引き継ぎ
                 currentBalance = nextBalance;
             }
         }
 
-        // 初期表示で一度計算を実行
-        window.onload = generateTable;
+        // 初期表示で計算
+        window.onload = updateDefaultValues;
     </script>
 </body>
 </html>
