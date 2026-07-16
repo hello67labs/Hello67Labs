@@ -358,5 +358,29 @@
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
+    <!-- お問い合わせセクション -->
+<section class="contact-section" style="padding: 60px 20px; background-color: #f7f9fc; text-align: center;">
+    <div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h2 style="color: #333; margin-bottom: 10px; font-size: 1.5rem;">お問い合わせ</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
+        
+        <!-- コピーしたFormspreeのURLを下の action="..." に貼り付けます -->
+        <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
+                <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+            </div>
+            <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
+                <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+            </div>
+            <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
+                <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+            </div>
+            <button type="submit" style="background-color: #4a90e2; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 10px; transition: background 0.2s;">送信する</button>
+        </form>
+    </div>
+</section>
 </body>
 </html>
