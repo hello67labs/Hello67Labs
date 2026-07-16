@@ -204,12 +204,14 @@
         <div class="calc-card">
             <!-- 通貨ペア選択 -->
             <div class="input-group">
-                <label for="currency">通貨ペア</label>
+                <label for="currency">取引銘柄</label>
                 <select id="currency" onchange="calculate()">
                     <option value="USDJPY">USD/JPY (ドル円)</option>
                     <option value="EURUSD">EUR/USD (ユーロドル)</option>
+                    <option value="GBPUSD">GBP/USD (ポンドドル)</option>
                     <option value="EURJPY">EUR/JPY (ユーロ円)</option>
                     <option value="GBPJPY">GBPJPY (ポンド円)</option>
+                    <option value="GOLD">GOLD / XAUUSD (ゴールド)</option>
                 </select>
             </div>
 
@@ -259,12 +261,14 @@
     </div>
 
     <script>
-        // 為替レート（自動取得はせず、シンプルかつ正確に動くよう固定平均値をセット）
+        // 計算用の為替レート（リアルタイムに近い平均値）
         const rates = {
-            USDJPY: 150.0,
-            EURUSD: 1.08,
-            EURJPY: 162.0,
-            GBPJPY: 190.0
+            USDJPY: 150.0,   // 1ドル = 150円
+            EURUSD: 1.08,    // 1ユーロ = 1.08ドル
+            GBPUSD: 1.28,    // 1ポンド = 1.28ドル
+            EURJPY: 162.0,   // 1ユーロ = 162円
+            GBPJPY: 192.0,   // 1ポンド = 192円
+            GOLD: 2400.0     // ゴールド1オンス = 2400ドル
         };
 
         function calculate() {
@@ -273,47 +277,61 @@
             const lots = parseFloat(document.getElementById('lots').value) || 0;
             const pips = parseFloat(document.getElementById('pips').value) || 0;
 
-            const contractSize = 100000; // 1ロット = 10万通貨
-            const rate = rates[currency];
-
+            const usdjpyRate = rates["USDJPY"];
             let leverage = 0;
             let profit = 0;
 
             if (balance > 0 && lots > 0) {
-                if (currency.endsWith("JPY")) {
-                    // 円絡みの通貨ペア (USDJPY, EURJPY, GBPJPY)
-                    const totalValue = lots * contractSize * rate;
-                    leverage = totalValue / balance;
-                    profit = lots * contractSize * (pips * 0.01);
-                } else if (currency === "EURUSD") {
-                    // ユーロドル
-                    const usdjpyRate = rates["USDJPY"];
-                    const totalValue = lots * contractSize * rate * usdjpyRate;
-                    leverage = totalValue / balance;
-                    // 1pips = 0.0001 USD
-                    profit = lots * contractSize * (pips * 0.0001) * usdjpyRate;
+                if (currency === "GOLD") {
+                    // --- ゴールドの計算 ---
+                    // ゴールドは1ロット＝100オンス
+                    const contractSize = 100; 
+                    const totalValueUSD = lots * contractSize * rates["GOLD"];
+                    const totalValueJPY = totalValueUSD * usdjpyRate;
+                    
+                    leverage = totalValueJPY / balance;
+                    // ゴールドの1pip＝0.1ドル幅
+                    profit = lots * contractSize * (pips * 0.1) * usdjpyRate;
+
+                } else {
+                    // --- 通常のFX通貨ペアの計算 ---
+                    const contractSize = 100000; // 1ロット = 10万通貨
+                    const rate = rates[currency];
+
+                    if (currency.endsWith("JPY")) {
+                        // クロス円 (USDJPY, EURJPY, GBPJPY)
+                        const totalValue = lots * contractSize * rate;
+                        leverage = totalValue / balance;
+                        profit = lots * contractSize * (pips * 0.01);
+                    } else {
+                        // ドルストレート (EURUSD, GBPUSD)
+                        const totalValue = lots * contractSize * rate * usdjpyRate;
+                        leverage = totalValue / balance;
+                        // 1pips = 0.0001 USD
+                        profit = lots * contractSize * (pips * 0.0001) * usdjpyRate;
+                    }
                 }
             }
 
-            // 結果を画面に表示
+            // 結果の反映
             document.getElementById('res-leverage').innerText = leverage.toFixed(1) + ' 倍';
             
-            // 損益の表記を見やすくフォーマット
+            // 損益表示の装飾
             const formattedProfit = Math.round(profit).toLocaleString();
             const profitEl = document.getElementById('res-profit');
             if (pips > 0) {
                 profitEl.innerText = '+' + formattedProfit + ' 円';
-                profitEl.style.color = '#78bfa2'; // 利益時は上品なグリーン
+                profitEl.style.color = '#78bfa2'; // 上品なグリーン
             } else if (pips < 0) {
                 profitEl.innerText = formattedProfit + ' 円';
-                profitEl.style.color = '#ffa39d'; // 損失時はアプリコットピンク
+                profitEl.style.color = '#ffa39d'; // アプリコットピンク
             } else {
                 profitEl.innerText = '±0 円';
                 profitEl.style.color = 'var(--text-dark)';
             }
         }
 
-        // 初期ロード時にも一回計算を走らせる
+        // 起動時に計算
         window.onload = calculate;
     </script>
 </body>
