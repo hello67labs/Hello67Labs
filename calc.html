@@ -69,6 +69,32 @@
             color: var(--text-sub);
         }
 
+        /* APIステータスインジケーター */
+        .api-status {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50px;
+            background-color: #ccc;
+            display: inline-block;
+        }
+        .status-dot.online { background-color: #78bfa2; }
+        .status-dot.offline { background-color: #ffa39d; }
+        .status-dot.loading { background-color: #ffd166; animation: blink 1s infinite alternate; }
+
+        @keyframes blink {
+            from { opacity: 0.4; } to { opacity: 1; }
+        }
+
         /* メインカード */
         .calc-card {
             background: var(--white);
@@ -240,6 +266,12 @@
             <p class="subtitle">実効レバレッジ維持型・複利計算シミュレーター</p>
         </header>
 
+        <!-- API接続状態インジケーター -->
+        <div class="api-status">
+            <span id="statusDot" class="status-dot loading"></span>
+            <span id="statusText">最新の為替レートを読み込み中...</span>
+        </div>
+
         <!-- 計算カード -->
         <div class="calc-card">
             <div class="grid-inputs">
@@ -282,8 +314,9 @@
 
                 <!-- 枚数上限 (ロット) -->
                 <div class="input-group">
+                    <!-- ★ご希望通り上限100に修正！ -->
                     <label>枚数上限 (ロット)</label>
-                    <input type="number" id="maxLots" value="1000" step="0.1">
+                    <input type="number" id="maxLots" value="100" step="0.1">
                 </div>
 
                 <!-- 通貨単位 -->
@@ -340,27 +373,100 @@
     </div>
 
     <script>
-        // 銘柄ごとのデフォルト値（レート等）
-        const defaults = {
-            GOLD:   { unit: 100,    price: 4060.00, label: "価格 (USD)", unitLabel: "契約サイズ (1Lot=100oz)" },
-            USDJPY: { unit: 100000, price: 150.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
-            EURUSD: { unit: 100000, price: 1.080,   label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
-            GBPUSD: { unit: 100000, price: 1.280,   label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
-            EURJPY: { unit: 100000, price: 162.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
-            GBPJPY: { unit: 100000, price: 192.00,  label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" }
+        // バックアップ用のデフォルトレート（通信エラー時の保険）
+        const fallbackRates = {
+            USDJPY: 162.00,
+            EURUSD: 1.080,
+            GBPUSD: 1.280,
+            EURJPY: 174.96, // EURUSD * USDJPY
+            GBPJPY: 207.36, // GBPUSD * USDJPY
+            GOLD:   4060.00
         };
+
+        // リアルタイム取得用のレートオブジェクト（初期値はバックアップ用）
+        let liveRates = { ...fallbackRates };
+
+        const defaults = {
+            GOLD:   { unit: 100,    label: "価格 (USD)", unitLabel: "契約サイズ (1Lot=100oz)" },
+            USDJPY: { unit: 100000, label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            EURUSD: { unit: 100000, label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            GBPUSD: { unit: 100000, label: "現在価格 (USD)", unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            EURJPY: { unit: 100000, label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" },
+            GBPJPY: { unit: 100000, label: "現在価格 (円)",  unitLabel: "契約サイズ (1Lot=10万通貨)" }
+        };
+
+        // --- 🛡️ 超安全：無料APIからレートを自動取得するエンジン ---
+        async function fetchLiveRates() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+
+            try {
+                // 為替情報の超有名オープンソースAPI（1日1回自動更新、軽量で信頼性が極めて高い）
+                const response = await fetch('https://open.er-api.com/v6/latest/USD');
+                if (!response.ok) throw new Error('APIレスポンスエラー');
+
+                const data = await response.json();
+                
+                // データを抽出
+                const jpyRate = data.rates.JPY; // 例: 162.00
+                const eurRate = data.rates.EUR; // 例: 0.9259 (1USD = 0.9259EUR)
+                const gbpRate = data.rates.GBP; // 例: 0.7812 (1USD = 0.7812GBP)
+
+                // 各通貨ペアをクロス円・ドルストレートとして整理
+                liveRates.USDJPY = jpyRate;
+                liveRates.EURUSD = 1 / eurRate;
+                liveRates.GBPUSD = 1 / gbpRate;
+                liveRates.EURJPY = (1 / eurRate) * jpyRate;
+                liveRates.GBPJPY = (1 / gbpRate) * jpyRate;
+
+                // --- 🌟 ゴールド（XAUUSD）自動取得枠 ---
+                // 通常無料の為替APIにXAU（ゴールド）が含まれないことが多いため、
+                // 金価格も提供している無料エンドポイントを並行してバックアップ取得
+                try {
+                    const xauRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=gold&vs_currencies=usd');
+                    if (xauRes.ok) {
+                        const xauData = await xauRes.json();
+                        if (xauData.gold && xauData.gold.usd) {
+                            liveRates.GOLD = xauData.gold.usd;
+                        }
+                    }
+                } catch (goldErr) {
+                    // 金価格の個別取得に失敗してもスルーしてデフォルト（4060ドル）を使用
+                    console.log('ゴールド最新価格の取得失敗（バックアップを使用します）', goldErr);
+                }
+
+                // 成功ステータスへ
+                statusDot.className = 'status-dot online';
+                statusText.innerText = '● 為替レートを自動的に同期しました';
+                
+            } catch (error) {
+                console.error('為替データ取得失敗。保険のレートを使用します。', error);
+                // 失敗時のステータス
+                statusDot.className = 'status-dot offline';
+                statusText.innerText = '⚠️ オフラインモード（バックアップの基準レートを使用中）';
+                
+                // 保険データを適用
+                liveRates = { ...fallbackRates };
+            }
+
+            // 取得完了後に画面へ数値を初期セット
+            updateDefaultValues();
+        }
 
         // 銘柄を切り替えたら、入力欄の初期値やラベルを自動調整する
         function updateDefaultValues() {
             const currency = document.getElementById('currency').value;
             const data = defaults[currency];
             
+            // APIから取得した最新の価格をインプットに流し込む！
+            document.getElementById('currentPrice').value = liveRates[currency].toFixed(3);
+            document.getElementById('usdjpyRate').value = liveRates.USDJPY.toFixed(2);
+
             document.getElementById('contractSize').value = data.unit;
-            document.getElementById('currentPrice').value = data.price;
             document.getElementById('priceLabel').innerText = data.label;
             document.getElementById('unitLabel').innerText = data.unitLabel;
 
-            // 切り替えたと同時に再計算
+            // 切り替えたと同時に20日シミュレーションを再計算
             generateTable();
         }
 
@@ -371,7 +477,7 @@
             const targetLev = parseFloat(document.getElementById('targetLev').value) || 0;
             const riskPct = parseFloat(document.getElementById('riskPct').value) || 0;
             const targetPips = parseFloat(document.getElementById('targetPips').value) || 0;
-            const maxLots = parseFloat(document.getElementById('maxLots').value) || 0;
+            const maxLots = parseFloat(document.getElementById('maxLots').value) || 100; // デフォルト100
             const contractSize = parseFloat(document.getElementById('contractSize').value) || 100000;
             const currentPrice = parseFloat(document.getElementById('currentPrice').value) || 0;
             const usdjpyRate = parseFloat(document.getElementById('usdjpyRate').value) || 0;
@@ -383,27 +489,24 @@
 
             let currentBalance = initBalance;
 
-            // ★きっちり「20日間」のループに拡張！
+            // きっちり「20日間」のループ
             for (let day = 1; day <= 20; day++) {
                 
                 // 1. ロット数（枚数）の計算
                 let calculatedLots = 0;
                 if (currentPrice > 0) {
                     if (currency === "GOLD") {
-                        // ゴールド： (資金 * レバ) / (ゴールド価格 * 100 * ドル円)
                         calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
                     } else if (currency.endsWith("JPY")) {
-                        // クロス円 (USDJPY, EURJPY, GBPJPY)： (資金 * レバ) / (通貨価格 * 10万)
                         calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize);
                     } else {
-                        // ドルストレート (EURUSD, GBPUSD)： (資金 * レバ) / (通貨価格 * 10万 * ドル円)
                         calculatedLots = (currentBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
                     }
 
-                    // ロット上限適用
+                    // ロット上限（100）の適用
                     if (calculatedLots > maxLots) calculatedLots = maxLots;
                     
-                    // MT5用に小数第2位で切り捨て
+                    // 小数第2位で切り捨て
                     calculatedLots = Math.floor(calculatedLots * 100) / 100;
                     if (calculatedLots < 0.01) calculatedLots = 0.01;
                 }
@@ -411,23 +514,20 @@
                 // 2. 1日の利益（円）の計算
                 let dailyProfit = 0;
                 if (currency === "GOLD") {
-                    // ゴールド：1pip = 0.1ドル幅
                     dailyProfit = calculatedLots * contractSize * (targetPips * 0.1) * usdjpyRate;
                 } else if (currency.endsWith("JPY")) {
-                    // クロス円：1pip = 0.01円幅
                     dailyProfit = calculatedLots * contractSize * (targetPips * 0.01);
                 } else {
-                    // ドルストレート：1pip = 0.0001ドル幅
                     dailyProfit = calculatedLots * contractSize * (targetPips * 0.0001) * usdjpyRate;
                 }
 
                 // 3. 翌日の運用資金
                 const nextBalance = currentBalance + dailyProfit;
 
-                // 4. 明日の損切り額 (利益確定後の運用資金に対するリスク%)
+                // 4. 明日の損切り額
                 const stopLossAmount = nextBalance * (riskPct / 100);
 
-                // 5. 損切りpipsの計算（翌日のロットベースで逆算）
+                // 5. 損切りpipsの計算
                 let nextDayLots = 0;
                 if (currency === "GOLD") {
                     nextDayLots = (nextBalance * targetLev) / (currentPrice * contractSize * usdjpyRate);
@@ -468,8 +568,8 @@
             }
         }
 
-        // 初期表示で計算
-        window.onload = updateDefaultValues;
+        // ページを読み込んだら、まずは最新レートを取得
+        window.onload = fetchLiveRates;
     </script>
 </body>
 </html>
