@@ -211,6 +211,14 @@
             background-color: #fafaf9;
         }
 
+        /* 合計行のスタイリング */
+        .total-row {
+            background-color: #fffbf0 !important;
+            font-weight: 700;
+            border-top: 2px solid #ffe1dd;
+            border-bottom: 2px solid #ffe1dd;
+        }
+
         .highlight-gain {
             color: #56b08a;
             font-weight: 700;
@@ -297,19 +305,19 @@
                 <!-- 維持レバレッジ -->
                 <div class="input-group">
                     <label>維持レバレッジ (倍)</label>
-                    <input type="number" id="targetLev" value="200">
+                    <input type="number" id="targetLev" value="100">
                 </div>
 
                 <!-- 許容リスク -->
                 <div class="input-group">
                     <label>許容リスク (%)</label>
-                    <input type="number" id="riskPct" value="2" step="0.1">
+                    <input type="number" id="riskPct" value="5" step="0.1">
                 </div>
 
                 <!-- 1日の獲得pips -->
                 <div class="input-group">
                     <label>1日の獲得pips</label>
-                    <input type="number" id="targetPips" value="20">
+                    <input type="number" id="targetPips" value="50">
                 </div>
 
                 <!-- 枚数上限 (ロット) -->
@@ -400,7 +408,7 @@
             const statusText = document.getElementById('statusText');
 
             try {
-                // 1. 為替レートの取得（ER-API：非常に安定したオープン為替データ）
+                // 1. 為替レートの取得（ER-API）
                 const fxResponse = await fetch('https://open.er-api.com/v6/latest/USD');
                 if (!fxResponse.ok) throw new Error('為替APIのエラー');
                 const fxData = await fxResponse.json();
@@ -415,22 +423,20 @@
                 liveRates.EURJPY = (1 / eurRate) * jpyRate;
                 liveRates.GBPJPY = (1 / gbpRate) * jpyRate;
 
-                // 2. ゴールド価格の取得（BinanceパブリックAPI：登録不要で最強のリアルタイム金価格）
-                // Binanceの金（PAXG/USDTなど、ほぼ純金価格に完全ペッグしているステーブルトークン）のレートを取得
+                // 2. ゴールド価格の取得（BinanceパブリックAPI）
                 try {
                     const goldResponse = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=PAXGUSDT');
                     if (goldResponse.ok) {
                         const goldData = await goldResponse.json();
                         const goldPrice = parseFloat(goldData.price);
-                        if (goldPrice > 1000) { // 異常値検知用の保険
+                        if (goldPrice > 1000) {
                             liveRates.GOLD = goldPrice;
                         }
                     }
                 } catch (goldErr) {
-                    console.log('ゴールドの最新値取得に一部エラー（バックアップを使用します）', goldErr);
+                    console.log('ゴールドの最新値取得に一部エラー', goldErr);
                 }
 
-                // 成功ステータスへ
                 statusDot.className = 'status-dot online';
                 statusText.innerText = '● 為替・ゴールドレートを自動的に同期しました';
                 
@@ -441,11 +447,9 @@
                 liveRates = { ...fallbackRates };
             }
 
-            // 取得完了後に画面へ数値を初期セット
             updateDefaultValues();
         }
 
-        // 銘柄を切り替えたら、入力欄の初期値やラベルを自動調整する
         function updateDefaultValues() {
             const currency = document.getElementById('currency').value;
             const data = defaults[currency];
@@ -477,6 +481,7 @@
             document.getElementById('tableTitle').innerText = `📈 ${currency}：1ヶ月（20日間）の複利運用計画`;
 
             let currentBalance = initBalance;
+            let totalProfit = 0;
 
             for (let day = 1; day <= 20; day++) {
                 let calculatedLots = 0;
@@ -503,6 +508,7 @@
                     dailyProfit = calculatedLots * contractSize * (targetPips * 0.0001) * usdjpyRate;
                 }
 
+                totalProfit += dailyProfit;
                 const nextBalance = currentBalance + dailyProfit;
                 const stopLossAmount = nextBalance * (riskPct / 100);
 
@@ -542,6 +548,19 @@
 
                 currentBalance = nextBalance;
             }
+
+            // ✨ 最下部に合計行を追加
+            const totalRow = document.createElement('tr');
+            totalRow.className = 'total-row';
+            totalRow.innerHTML = `
+                <td><b>合計 / 最終結果</b></td>
+                <td>-</td>
+                <td class="highlight-gain">¥${Math.round(totalProfit).toLocaleString()}</td>
+                <td><b>¥${Math.round(currentBalance).toLocaleString()}</b></td>
+                <td>-</td>
+                <td>-</td>
+            `;
+            tbody.appendChild(totalRow);
         }
 
         window.onload = fetchLiveRates;
