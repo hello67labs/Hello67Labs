@@ -6,14 +6,14 @@
     <title>3Line BreakEven for MT5 - 67Labs</title>
     <style>
         :root {
-            --bg-color: #faf6f0;        /* 極上のやわらかいアイボリー */
-            --primary: #ffb5b0;         /* 甘すぎない上品なアプリコットピンク */
+            --bg-color: #faf6f0;
+            --primary: #ffb5b0;
             --primary-hover: #ffa39d;
-            --accent-mint: #d0f0c0;     /* 澄んだミントシャーベット */
-            --accent-blue: #cbe3f8;     /* 涼しげなパステルブルー */
-            --accent-purple: #e1d5f5;   /* 落ち着いたパステルラベンダー */
-            --text-dark: #4a4543;       /* 黒ではなく、温かみのある深焦げ茶 */
-            --text-sub: #7d7571;        /* やさしいココアグレー */
+            --accent-mint: #d0f0c0;
+            --accent-blue: #cbe3f8;
+            --accent-purple: #e1d5f5;
+            --text-dark: #4a4543;
+            --text-sub: #7d7571;
             --white: #ffffff;
             --card-shadow: 0 10px 30px rgba(120, 90, 80, 0.05);
         }
@@ -32,10 +32,65 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* グローバルナビゲーション */
+        .global-nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #ede5db;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 20px;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-sub);
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-dark);
+            background-color: rgba(0,0,0,0.04);
+        }
+
+        .nav-links a.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
         /* ヘッダー */
         header {
             text-align: center;
-            padding: 80px 20px 50px;
+            padding: 70px 20px 50px;
             background: radial-gradient(circle at top left, #fff7f5 0%, #f3faf6 50%, #f4f2fb 100%);
             border-bottom: 2px dashed #ede5db;
         }
@@ -74,7 +129,6 @@
             font-weight: 500;
         }
 
-        /* アクションエリア */
         .cta-container {
             margin-bottom: 20px;
         }
@@ -114,14 +168,12 @@
             display: block;
         }
 
-        /* メインコンテンツ */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px;
         }
 
-        /* セクション共通 */
         section {
             margin-bottom: 80px;
         }
@@ -145,7 +197,6 @@
             border-radius: 10px;
         }
 
-        /* 機能カード */
         .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -209,7 +260,6 @@
             line-height: 1.8;
         }
 
-        /* 導入ステップ */
         .setup-box {
             background: var(--white);
             border-radius: 32px;
@@ -250,7 +300,21 @@
             line-height: 1.6;
         }
 
-        /* フッター */
+        .contact-section {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+            text-align: center;
+        }
+
+        .contact-box {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
         footer {
             background-color: #f2ebe1;
             text-align: center;
@@ -265,18 +329,30 @@
             letter-spacing: 0.05em;
         }
 
-        /* レスポンシブ */
         @media (max-width: 768px) {
-            header { padding: 60px 15px 40px; }
-            h1 { font-size: 1.9rem; }
-            .subtitle { font-size: 1rem; }
+            header { padding: 50px 15px 35px; }
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 0.95rem; }
             .container { padding: 40px 15px; }
             .setup-box { padding: 35px 20px; }
             .step-list { grid-template-columns: 1fr; gap: 30px; }
+            .nav-container { flex-direction: column; align-items: center; gap: 8px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- 共通ナビゲーション（リンク先を正しいファイル名に修正済） -->
+    <nav class="global-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">67LABS</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">3Line BreakEven</a></li>
+                <li><a href="linear.html">Linear Regression</a></li>
+                <li><a href="calc.html">計算ツール</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- ヘッダー -->
     <header>
@@ -284,10 +360,9 @@
             <span class="brand-logo">67Labs</span>
         </div>
         <h1>3Line BreakEven for MT5</h1>
-        <p class="subtitle">損益分岐点をスマートに視覚化。もっと直感的に。</p>
+        <p class="subtitle">複数ポジションの平均建値を一瞬で可視化。資金管理をよりスマートに。</p>
         
         <div class="cta-container">
-            <!-- 完全に正しい直接ダウンロードURLに設定完了！ -->
             <a href="https://raw.githubusercontent.com/hello67labs/Hello67Labs/main/3Line%20BreakEven_v1.0.ex5" class="btn-download" download>
                 <svg viewBox="0 0 24 24">
                     <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
@@ -295,42 +370,33 @@
                 インジケーターをダウンロード
             </a>
             <span class="version-tag">最新バージョン: v1.0 (MT5版)</span>
-       <!-- 【追加】ここが計算ツールへのさりげないリンクです -->
-            <div style="margin-top: 20px;">
-                <a href="calc.html" style="display: inline-flex; align-items: center; gap: 6px; color: var(--text-sub); text-decoration: none; font-size: 0.85rem; font-weight: 600; background: rgba(255, 255, 255, 0.6); padding: 6px 16px; border-radius: 50px; border: 1px dashed rgba(255, 181, 176, 0.5); transition: all 0.2s;" onmouseover="this.style.background='var(--white)'; this.style.borderColor='var(--primary)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.6)'; this.style.borderColor='rgba(255, 181, 176, 0.5)'">
-                    <span>💡</span> 資金管理に役立つ「レバレッジ・損益計算ツール」はこちら
-                </a>
-            </div>
         </div>
     </header>
 
     <div class="container">
-        
-        <!-- 機能紹介 -->
         <section>
             <h2>FEATURES</h2>
             <div class="grid-features">
                 <div class="card card-pink">
-                    <div class="card-icon">📊</div>
-                    <h3>正確なコスト計算</h3>
-                    <p>パラメーターから「片道手数料」を設定するだけで、往復のコストを瞬時に計算。スプレッドだけでは見えない実質的な損益分岐点を正確に描写します。</p>
+                    <div class="card-icon">⚖️</div>
+                    <h3>損益分岐ラインの自動計算</h3>
+                    <p>買い・売りそれぞれの平均建値（損益分岐点）を自動計算し、チャート上にわかりやすく水平線で描画します。</p>
                 </div>
                 
                 <div class="card card-mint">
-                    <div class="card-icon">✨</div>
-                    <h3>両建ての残像表示</h3>
-                    <p>買い・売りポジションが同時に存在する時だけ全体の相殺ラインを表示。決済され片方向になった瞬間、直前のALL-BE価格にスマートな残像（点線）を残します。</p>
+                    <div class="card-icon">📊</div>
+                    <h3>ポジション情報の可視化</h3>
+                    <p>保有中の合計ロット数や平均価格、評価損益などの重要な情報を画面上にシンプルかつ綺麗にまとめて表示します。</p>
                 </div>
                 
                 <div class="card card-blue">
-                    <div class="card-icon">🎨</div>
-                    <h3>自由な配色</h3>
-                    <p>利益・損失状態・残像のカラーは、お好みのチャートテーマに合わせて、MT5の設定画面から誰でも簡単に変更可能です。</p>
+                    <div class="card-icon">⚙️</div>
+                    <h3>直感的なカスタマイズ</h3>
+                    <p>ラインの色や太さ、表示位置など、お好みに合わせて簡単に設定変更が可能です。</p>
                 </div>
             </div>
         </section>
 
-        <!-- インストール手順 -->
         <section class="setup-box">
             <h2>HOW TO INSTALL</h2>
             <div class="step-list">
@@ -356,14 +422,12 @@
                 </div>
             </div>
         </section>
-
     </div>
 
-    <!-- お問い合わせセクション -->
-    <section class="contact-section" style="padding: 60px 20px; background-color: #f7f9fc; text-align: center;">
-        <div style="max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-            <h2 style="color: #333; margin-bottom: 10px; font-size: 1.5rem;">お問い合わせ</h2>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
+    <section class="contact-section">
+        <div class="contact-box">
+            <h2>お問い合わせ</h2>
+            <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
             
             <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
                 <div>
@@ -376,14 +440,13 @@
                 </div>
                 <div>
                     <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
-                    <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-                <button type="submit" style="background-color: #4a90e2; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 10px; transition: background 0.2s;">送信する</button>
+                <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
             </form>
         </div>
     </section>
 
-    <!-- フッター -->
     <footer>
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
