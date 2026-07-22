@@ -265,14 +265,21 @@
 <body>
 
     <div class="container">
-        <!-- ヘッダー -->
+        <!-- ナビゲーションヘッダー（差し替え後） -->
         <header>
-            <div class="logo-area">
-                <span class="brand-logo">67Labs Tools</span>
-            </div>
+            <a href="index.html" class="logo">67Labs</a>
+            <nav>
+                <a href="index.html" class="active">3Line BreakEven</a>
+                <a href="linear.html">Linear Regression</a>
+                <a href="calc.html">計算ツール</a>
+            </nav>
+        </header>
+
+        <!-- タイトル部分（元ヘッダーから外に出す場合） -->
+        <div style="text-align: center; margin-bottom: 20px;">
             <h1>Compound Calculator</h1>
             <p class="subtitle">実効レバレッジ維持型・複利計算シミュレーター</p>
-        </header>
+        </div>
 
         <!-- API接続状態インジケーター -->
         <div class="api-status">
