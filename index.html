@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello67Labs | MT4/MT5 Trading Tools</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>67Labs - トレーダーの「あったらいいな」を形に</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --card-border: #1f2937;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-main: #f3f4f6;
-            --text-sub: #9ca3af;
-            --text-muted: #6b7280;
+            --bg-color: #faf6f0;
+            --primary: #ffb5b0;
+            --primary-hover: #ffa39d;
+            --accent-mint: #d0f0c0;
+            --accent-blue: #cbe3f8;
+            --accent-purple: #e1d5f5;
+            --text-dark: #4a4543;
+            --text-sub: #7d7571;
+            --white: #ffffff;
+            --card-shadow: 0 10px 30px rgba(120, 90, 80, 0.05);
         }
 
         * {
@@ -30,360 +25,447 @@
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text-dark);
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* Header / Navbar */
-        header {
+        /* グローバルナビゲーション */
+        .global-nav {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #ede5db;
             position: sticky;
             top: 0;
-            z-index: 100;
-            background-color: rgba(11, 15, 25, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
+            padding: 12px 20px;
         }
 
         .nav-container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 1.2rem 1.5rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: var(--text-main);
-        }
-
-        .logo span {
-            color: var(--accent-color);
+        .nav-logo {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: 0.1em;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 15px;
             list-style: none;
         }
 
         .nav-links a {
-            font-size: 0.9rem;
+            text-decoration: none;
             color: var(--text-sub);
-            transition: color 0.2s;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: var(--text-main);
+            color: var(--text-dark);
+            background-color: rgba(0,0,0,0.04);
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        .nav-links a.active {
+            background-color: var(--primary);
+            color: var(--white);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 5rem 0 3.5rem;
+        /* ヘッダー */
+        header {
+            text-align: center;
+            padding: 70px 20px 50px;
+            background: radial-gradient(circle at top left, #fff7f5 0%, #f3faf6 50%, #f4f2fb 100%);
+            border-bottom: 2px dashed #ede5db;
         }
 
-        .hero-title {
-            font-size: 1.8rem;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            color: var(--text-main);
-            margin-bottom: 0.8rem;
+        .logo-area {
+            margin-bottom: 25px;
         }
 
-        .hero-subtitle {
+        .brand-logo {
             font-size: 0.95rem;
-            color: var(--text-sub);
-            font-weight: 300;
-            max-width: 600px;
-        }
-
-        /* Product Section */
-        .product-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .product-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .product-title-group {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .product-title {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--accent-color);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            font-weight: 500;
-        }
-
-        .product-desc {
-            color: var(--text-sub);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Features */
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
+            font-weight: 800;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            color: var(--text-sub);
+            background: var(--white);
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.01);
         }
 
-        .features-grid {
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-sub);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 45px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 12px auto 0;
+            border-radius: 10px;
+        }
+
+        /* ABOUTカード（左寄せ） */
+        .about-box {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 40px 35px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(237, 229, 219, 0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .about-box p {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
+        .about-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ツール一覧グリッド */
+        .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2.5rem;
+            gap: 30px;
         }
 
-        .feature-item {
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1.25rem;
-            border-radius: 8px;
-        }
-
-        .feature-item h4 {
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 0.4rem;
-            color: var(--text-main);
-        }
-
-        .feature-item p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-        }
-
-        /* Download Section */
-        .download-box {
-            background-color: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 1.5rem;
+        .card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 35px 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(237, 229, 219, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .download-info p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(120, 90, 80, 0.08);
         }
 
-        .btn-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--accent-color);
-            color: #ffffff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
         }
 
-        .btn-download:hover {
-            background-color: var(--accent-hover);
-        }
+        .card-pink::before { background: var(--primary); }
+        .card-mint::before { background: var(--accent-mint); }
+        .card-blue::before { background: var(--accent-blue); }
+        .card-purple::before { background: var(--accent-purple); }
 
-        /* About Section */
-        .about-section {
-            border-top: 1px solid var(--card-border);
-            padding: 3.5rem 0;
-            text-align: left; /* 左寄せに変更 */
-        }
-
-        .about-section h2 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .about-section p {
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            max-width: 700px;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Social Links */
-        .social-box {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px dashed var(--card-border);
-        }
-
-        .social-links {
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 18px;
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card-pink .card-icon { background-color: #fff0ef; }
+        .card-mint .card-icon { background-color: #f0faf2; }
+        .card-blue .card-icon { background-color: #f0f7fd; }
+        .card-purple .card-icon { background-color: #f7f0fd; }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            color: var(--text-sub);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .card-link-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* お問い合わせ */
+        .contact-section {
+            padding: 60px 20px;
+            background-color: #f7f9fc;
+            text-align: center;
+        }
+
+        .contact-box {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
+        /* SNSリンクエリア */
+        .sns-area {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed #ede5db;
+        }
+
+        .sns-area p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+        }
+
+        .sns-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .social-btn {
+        .sns-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            text-decoration: none;
             font-size: 0.85rem;
-            color: var(--text-main);
-            transition: border-color 0.2s, background-color 0.2s;
+            font-weight: 700;
+            border: 1px solid #ede5db;
+            transition: all 0.2s ease;
         }
 
-        .social-btn:hover {
-            border-color: var(--text-sub);
-            background-color: rgba(255, 255, 255, 0.05);
+        .sns-btn:hover {
+            background-color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* Footer */
         footer {
-            border-top: 1px solid var(--card-border);
-            padding: 2rem 0;
+            background-color: #f2ebe1;
             text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            border-top: 1px solid #ebdcd0;
+        }
+
+        footer p {
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 50px 15px 35px; }
+            h1 { font-size: 1.7rem; }
+            .subtitle { font-size: 0.95rem; }
+            .container { padding: 40px 15px; }
+            .about-box { padding: 30px 20px; }
+            .nav-container { flex-direction: column; align-items: center; gap: 8px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
+    <!-- 共通ナビゲーション -->
+    <nav class="global-nav">
         <div class="nav-container">
-            <div class="logo">Hello67<span>Labs</span></div>
+            <a href="index.html" class="nav-logo">67LABS</a>
             <ul class="nav-links">
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="3line.html">3Line BreakEven</a></li>
+                <li><a href="analytics.html">Analytics Monitor</a></li>
+                <li><a href="linear.html">Linear Regression</a></li>
+                <li><a href="calc.html">計算ツール</a></li>
             </ul>
         </div>
+    </nav>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="logo-area">
+            <span class="brand-logo">67Labs</span>
+        </div>
+        <h1>トレーダーの「あったらいいな」を形に</h1>
+        <p class="subtitle">67Labs はじめました。</p>
     </header>
 
     <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 class="hero-title">Trading Tools & Utility</h1>
-            <p class="hero-subtitle">トレード環境をシンプルかつ効率的にするMT4/MT5向けEAを提供しています。</p>
-        </section>
-
-        <!-- Product Section -->
-        <section id="products">
-            <div class="product-card">
-                <div class="product-header">
-                    <div class="product-title-group">
-                        <h2 class="product-title">3Line BreakEven</h2>
-                        <span class="badge">v1.1</span>
-                    </div>
-                </div>
-
-                <p class="product-desc">
-                    トレードの決済・リスク管理をスムーズにするブレイクイーブン補助EAです。複雑な操作を排除し、直感的なライン操作で建値撤退や段階的な利益確定を設定できます。
-                </p>
-
-                <div class="section-label">FEATURES</div>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <h4>直感的なライン操作</h4>
-                        <p>チャート上に表示されるラインを移動するだけで、建値移動ラインや決済ラインを簡単に変更可能です。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>段階的な決済設定</h4>
-                        <p>分割決済に対応し、リスクを最小限に抑えながら利益を確保するポジション管理をサポートします。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h4>シンプルな設計</h4>
-                        <p>チャートの視認性を邪魔しないミニマルなUIで、素早い判断を妨げません。</p>
-                    </div>
-                </div>
-
-                <div class="download-box">
-                    <div class="download-info">
-                        <p>ダウンロードボタンからファイルを取得します。</p>
-                    </div>
-                    <!-- 3line.html へのリンク -->
-                    <a href="3line.html" class="btn-download">
-                        <i class="fa-solid fa-download"></i> ダウンロード
-                    </a>
-                </div>
+        
+        <!-- なぜ作ったのか -->
+        <section>
+            <h2>ABOUT</h2>
+            <div class="about-box">
+                <p>日々のトレードの中で、「こういうツールがあったらもっと判断しやすいのに」「こんなシンプルな計算機能が欲しい」と感じることはありませんか？</p>
+                <p>67Labsは、そんなトレード現場での「あったらいいな」を一つひとつ形にしていくための場所です。</p>
+                <p>複雑すぎるものではなく、直感的で本当に役に立つツールやコンテンツを少しずつ公開していきます。</p>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <h2>About Hello67Labs</h2>
-            <p>
-                Hello67Labsでは、実際のトレード経験をもとに「使いやすさ」と「無駄のなさ」を重視したMT4/MT5用EAを開発しています。
-            </p>
+        <!-- ツール・コンテンツ一覧 -->
+        <section>
+            <h2>TOOLS & CONTENTS</h2>
+            <div class="grid-features">
+                
+                <a href="3line.html" class="card card-pink">
+                    <div>
+                        <div class="card-icon">⚖️</div>
+                        <h3>3Line BreakEven</h3>
+                        <p>複数ポジションの平均建値（損益分岐点）をMT5チャート上に自動計算・描画するEA。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
 
-            <div class="social-box">
-                <p>アップデート情報や使い方はXでも発信しています。</p>
-                <div class="social-links">
-                    <!-- X (旧Twitter) リンク: ご自身のURLに変更してください -->
-                    <a href="https://x.com/your_account" target="_blank" rel="noopener noreferrer" class="social-btn">
-                        <i class="fa-brands fa-x-twitter"></i> X (Twitter)
-                    </a>
-                    <!-- note リンク: ご自身のURLに変更してください -->
-                    <a href="https://note.com/your_account" target="_blank" rel="noopener noreferrer" class="social-btn">
-                        <i class="fa-solid fa-book-open"></i> note
-                    </a>
-                </div>
+                <a href="analytics.html" class="card card-mint">
+                    <div>
+                        <div class="card-icon">📊</div>
+                        <h3>Analytics Monitor</h3>
+                        <p>トレードの状況や分析データを画面上にシンプルかつ視覚的にまとめて表示。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
+
+                <a href="linear.html" class="card card-blue">
+                    <div>
+                        <div class="card-icon">📈</div>
+                        <h3>Linear Regression</h3>
+                        <p>回帰分析を用いたトレンド把握や環境認識をサポートする分析ツール。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
+
+                <a href="calc.html" class="card card-purple">
+                    <div>
+                        <div class="card-icon">🧮</div>
+                        <h3>計算ツール</h3>
+                        <p>ロット計算や資金管理など、トレード中に素早く使える便利Webツール。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
+
             </div>
         </section>
+
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            &copy; Hello67Labs. All rights reserved.
+    <!-- お問い合わせ -->
+    <section class="contact-section">
+        <div class="contact-box">
+            <h2>お問い合わせ</h2>
+            <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
+            
+            <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
+            </form>
+
+            <!-- SNSリンク（X・note） -->
+            <div class="sns-area">
+                <p>アップデート情報や使い方はXでも発信しています。</p>
+                <div class="sns-buttons">
+                    <a href="https://x.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-btn">
+                        X (Twitter) ↗
+                    </a>
+                    <a href="https://note.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-btn">
+                        note ↗
+                    </a>
+                </div>
+            </div>
+
         </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
 </body>
