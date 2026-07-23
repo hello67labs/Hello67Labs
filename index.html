@@ -95,38 +95,20 @@
             border-bottom: 2px dashed #ede5db;
         }
 
-        .logo-area {
-            margin-bottom: 25px;
-        }
-
-        .brand-logo {
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
+        /* サブタイトル（トレーダーの「あったらいいな」を形に） */
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--text-sub);
-            background: var(--white);
-            padding: 8px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0,0,0,0.01);
+            margin-bottom: 8px;
         }
 
+        /* メインの見出し（67Labs はじめました。） */
         h1 {
             font-size: 2.2rem;
             font-weight: 800;
             color: var(--text-dark);
             letter-spacing: -0.02em;
-            margin-bottom: 12px;
-        }
-
-        .subtitle {
-            font-size: 1.05rem;
-            color: var(--text-sub);
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 500;
         }
 
         .container {
@@ -158,7 +140,7 @@
             border-radius: 10px;
         }
 
-        /* ABOUTカード（左寄せ） */
+        /* ABOUTカード（なぜ作ったのか） */
         .about-box {
             background: var(--white);
             border-radius: 28px;
@@ -167,7 +149,7 @@
             border: 1px solid rgba(237, 229, 219, 0.3);
             max-width: 800px;
             margin: 0 auto;
-            text-align: left;
+            text-align: center;
         }
 
         .about-box p {
@@ -278,47 +260,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
-        /* SNSリンクエリア */
-        .sns-area {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px dashed #ede5db;
-        }
-
-        .sns-area p {
-            font-size: 0.88rem;
-            color: var(--text-sub);
-            margin-bottom: 15px;
-        }
-
-        .sns-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .sns-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
-            border-radius: 50px;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border: 1px solid #ede5db;
-            transition: all 0.2s ease;
-        }
-
-        .sns-btn:hover {
-            background-color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
         footer {
             background-color: #f2ebe1;
             text-align: center;
@@ -336,7 +277,7 @@
         @media (max-width: 768px) {
             header { padding: 50px 15px 35px; }
             h1 { font-size: 1.7rem; }
-            .subtitle { font-size: 0.95rem; }
+            .subtitle { font-size: 0.9rem; }
             .container { padding: 40px 15px; }
             .about-box { padding: 30px 20px; }
             .nav-container { flex-direction: column; align-items: center; gap: 8px; }
@@ -360,11 +301,8 @@
 
     <!-- ヘッダー -->
     <header>
-        <div class="logo-area">
-            <span class="brand-logo">67Labs</span>
-        </div>
-        <h1>トレーダーの「あったらいいな」を形に</h1>
-        <p class="subtitle">67Labs はじめました。</p>
+        <p class="subtitle">トレーダーの「あったらいいな」を形に</p>
+        <h1>67Labs はじめました。</h1>
     </header>
 
     <div class="container">
@@ -388,7 +326,7 @@
                     <div>
                         <div class="card-icon">⚖️</div>
                         <h3>3Line BreakEven</h3>
-                        <p>複数ポジションの平均建値（損益分岐点）をMT5チャート上に自動計算・描画するEA。</p>
+                        <p>複数ポジションの平均建値（損益分岐点）をMT5チャート上に自動計算・描画するインジケーター。</p>
                     </div>
                     <span class="card-link-text">詳細を見る →</span>
                 </a>
@@ -446,20 +384,6 @@
                 </div>
                 <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
             </form>
-
-            <!-- SNSリンク（X・note） -->
-            <div class="sns-area">
-                <p>アップデート情報や使い方はXでも発信しています。</p>
-                <div class="sns-buttons">
-                    <a href="https://x.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-btn">
-                        X (Twitter) ↗
-                    </a>
-                    <a href="https://note.com/your_account" target="_blank" rel="noopener noreferrer" class="sns-btn">
-                        note ↗
-                    </a>
-                </div>
-            </div>
-
         </div>
     </section>
 
