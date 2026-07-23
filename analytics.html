@@ -125,12 +125,15 @@
             margin-bottom: 12px;
         }
 
+        /* 🌸 サブタイトルの改行崩れを防止 */
         .subtitle {
             font-size: 1.1rem;
             color: var(--text-sub);
             max-width: 600px;
             margin: 0 auto 35px;
             font-weight: 500;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .cta-container {
