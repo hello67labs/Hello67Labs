@@ -167,6 +167,16 @@
             margin-bottom: 0;
         }
 
+        /* 🌸 注意書き（文字を少し小さく、馴染むデザインに） */
+        .license-note {
+            font-size: 0.8rem !important;
+            color: var(--text-sub);
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ede5db;
+            opacity: 0.85;
+        }
+
         /* ツール一覧グリッド */
         .grid-features {
             display: grid;
@@ -264,6 +274,50 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
+        /* 🌸 可愛くしたSNSリンクエリア */
+        .sns-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px dashed #f0e8e0;
+        }
+
+        .sns-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
+            background-color: #fff8f7;
+            color: var(--text-dark);
+            border: 1px solid #fce8e6;
+            box-shadow: 0 2px 8px rgba(255, 181, 176, 0.15);
+        }
+
+        .sns-btn:hover {
+            transform: translateY(-2px);
+            background-color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(255, 181, 176, 0.3);
+        }
+
+        .sns-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #ffe3e0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
         footer {
             background-color: #f2ebe1;
             text-align: center;
@@ -285,6 +339,8 @@
             .container { padding: 40px 15px; }
             .about-box { padding: 30px 20px; }
             .nav-container { flex-direction: column; align-items: center; gap: 8px; }
+            .sns-links { flex-direction: column; gap: 10px; }
+            .sns-btn { justify-content: center; }
         }
     </style>
 </head>
@@ -318,7 +374,7 @@
                 <p>日々のトレードの中で、「こういうツールがあったらもっと判断しやすいのに」「こんなシンプルな計算機能が欲しい」と感じることはありませんか？</p>
                 <p>67Labsは、そんなトレード現場での「あったらいいな」を一つひとつ形にしていくための場所です。</p>
                 <p>複雑すぎるものではなく、直感的で本当に役に立つツールやコンテンツを少しずつ無料公開していきます。</p>
-        　　　　<p class="license-note">※ 当サイトで公開しているツールはどなたでも無料でお使いいただけますが、再配布（二次配布）や商用利用、無断転載はご遠慮ください。</p>
+                <p class="license-note">※ 当サイトで公開しているツールはどなたでも無料でお使いいただけますが、再配布（二次配布）や商用利用、無断転載はご遠慮ください。</p>
             </div>
         </section>
 
@@ -389,17 +445,21 @@
                 </div>
                 <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
             </form>
-        <!-- 🌸 Xとnoteのリンク -->
+
+            <!-- 🌸 可愛くしたSNSリンク -->
             <div class="sns-links">
                 <a href="https://x.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
-                    <span>𝕏</span> Official X
+                    <span class="sns-badge">𝕏</span>
+                    <span>Official X</span>
                 </a>
                 <a href="https://note.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
-                    <span>📝</span> Official note
+                    <span class="sns-badge">📝</span>
+                    <span>Official note</span>
                 </a>
             </div>
         </div>
     </section>
+
     <!-- フッター -->
     <footer>
         <p>&copy; 2026 67Labs. All rights reserved.</p>
