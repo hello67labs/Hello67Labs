@@ -57,12 +57,23 @@
             gap: 10px;
         }
 
+        /* 🌸 ロゴとミニアイコンの配置デザイン */
         .nav-logo {
             font-weight: 800;
             font-size: 0.95rem;
             color: var(--text-dark);
             text-decoration: none;
             letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            filter: drop-shadow(0 2px 4px rgba(255, 181, 176, 0.4));
         }
 
         .nav-links {
@@ -167,7 +178,7 @@
             margin-bottom: 0;
         }
 
-        /* 🌸 注意書き（文字を少し小さく、馴染むデザインに） */
+        /* 🌸 注意書き */
         .license-note {
             font-size: 0.8rem !important;
             color: var(--text-sub);
@@ -346,10 +357,16 @@
 </head>
 <body>
 
-    <!-- 共通ナビゲーション -->
+    <!-- 🌸 左上に可愛い67ミニロゴ付きのナビゲーション -->
     <nav class="global-nav">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">67LABS</a>
+            <a href="index.html" class="nav-logo">
+                <svg class="nav-logo-icon" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#ffb5b0"/>
+                    <text x="50" y="62" font-size="45" font-family="-apple-system, sans-serif" font-weight="800" fill="#ffffff" text-anchor="middle">67</text>
+                </svg>
+                67LABS
+            </a>
             <ul class="nav-links">
                 <li><a href="3line.html">3Line BreakEven</a></li>
                 <li><a href="analytics.html">Analytics Monitor</a></li>
