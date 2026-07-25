@@ -32,11 +32,11 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
             background-color: var(--bg-color);
             color: var(--text-dark);
-            line-height: 1.7;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* グローバルナビゲーション */
+        /* 🌸 グローバルナビゲーション（ハンバーガー専用） */
         .global-nav {
             background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
@@ -53,14 +53,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
-        /* 🌸 ロゴとミニアイコンの配置デザイン */
         .nav-logo {
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-dark);
             text-decoration: none;
             letter-spacing: 0.1em;
@@ -70,57 +67,124 @@
         }
 
         .nav-logo-icon {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             filter: drop-shadow(0 2px 4px rgba(255, 181, 176, 0.4));
         }
 
-        .nav-links {
+        /* 🌸 三本線（ハンバーガーボタン） */
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
             display: flex;
-            gap: 15px;
-            list-style: none;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1002;
         }
 
-        .nav-links a {
+        .menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* メニューが開いたときの三本線の変形（X印） */
+        .menu-btn.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-btn.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* 🌸 スライドインメニュー背景・本体 */
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.08);
+            z-index: 1001;
+            padding: 80px 30px 40px;
+            transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-drawer.active {
+            right: 0;
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drawer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .drawer-links a {
             text-decoration: none;
-            color: var(--text-sub);
-            font-size: 0.88rem;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 20px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: block;
             transition: all 0.2s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--text-dark);
-            background-color: rgba(0,0,0,0.04);
-        }
-
-        .nav-links a.active {
-            background-color: var(--primary);
-            color: var(--white);
+        .drawer-links a:hover,
+        .drawer-links a.active {
+            background-color: #fff0ef;
+            color: var(--primary-hover);
         }
 
         /* ヘッダー */
         header {
             text-align: center;
-            padding: 70px 20px 50px;
+            padding: 60px 20px 45px;
             background: radial-gradient(circle at top left, #fff7f5 0%, #f3faf6 50%, #f4f2fb 100%);
             border-bottom: 2px dashed #ede5db;
         }
 
-        /* サブタイトル（トレーダーの「あったらいいな」をかたちに） */
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-sub);
             margin-bottom: 8px;
         }
 
-        /* メインの見出し（67Labs はじめました） */
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             font-weight: 800;
             color: var(--text-dark);
             letter-spacing: -0.02em;
@@ -129,18 +193,18 @@
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 50px 20px;
         }
 
         section {
-            margin-bottom: 80px;
+            margin-bottom: 70px;
         }
 
         h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             text-align: center;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
             color: var(--text-dark);
             position: relative;
         }
@@ -151,15 +215,15 @@
             width: 40px;
             height: 4px;
             background-color: var(--primary);
-            margin: 12px auto 0;
+            margin: 10px auto 0;
             border-radius: 10px;
         }
 
-        /* ABOUTカード（なぜ作ったのか） */
+        /* ABOUTカード */
         .about-box {
             background: var(--white);
-            border-radius: 28px;
-            padding: 40px 35px;
+            border-radius: 24px;
+            padding: 35px 30px;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(237, 229, 219, 0.3);
             max-width: 800px;
@@ -169,16 +233,15 @@
 
         .about-box p {
             color: var(--text-dark);
-            font-size: 1rem;
-            line-height: 1.9;
-            margin-bottom: 15px;
+            font-size: 0.98rem;
+            line-height: 1.95;
+            margin-bottom: 18px;
         }
 
         .about-box p:last-child {
             margin-bottom: 0;
         }
 
-        /* 🌸 注意書き */
         .license-note {
             font-size: 0.8rem !important;
             color: var(--text-sub);
@@ -192,13 +255,13 @@
         .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .card {
             background: var(--white);
-            border-radius: 28px;
-            padding: 35px 30px;
+            border-radius: 24px;
+            padding: 32px 26px;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(237, 229, 219, 0.3);
             transition: all 0.3s ease;
@@ -231,14 +294,14 @@
         .card-purple::before { background: var(--accent-purple); }
 
         .card-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 18px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
         }
 
         .card-pink .card-icon { background-color: #fff0ef; }
@@ -247,17 +310,17 @@
         .card-purple .card-icon { background-color: #f7f0fd; }
 
         .card h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--text-dark);
         }
 
         .card p {
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             color: var(--text-sub);
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.75;
+            margin-bottom: 18px;
         }
 
         .card-link-text {
@@ -271,7 +334,7 @@
 
         /* お問い合わせ */
         .contact-section {
-            padding: 60px 20px;
+            padding: 50px 20px;
             background-color: #f7f9fc;
             text-align: center;
         }
@@ -280,18 +343,17 @@
             max-width: 500px;
             margin: 0 auto;
             background: white;
-            padding: 35px 30px;
+            padding: 35px 25px;
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
-        /* 🌸 可愛くしたSNSリンクエリア */
         .sns-links {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-top: 30px;
-            padding-top: 22px;
+            margin-top: 28px;
+            padding-top: 20px;
             border-top: 1px dashed #f0e8e0;
         }
 
@@ -299,7 +361,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 700;
@@ -332,8 +394,8 @@
         footer {
             background-color: #f2ebe1;
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.85rem;
+            padding: 35px 20px;
+            font-size: 0.82rem;
             color: var(--text-sub);
             border-top: 1px solid #ebdcd0;
         }
@@ -343,21 +405,50 @@
             letter-spacing: 0.05em;
         }
 
+        /* 🌸 スマホ専用スタイル（文字が詰まらないよう調整） */
         @media (max-width: 768px) {
-            header { padding: 50px 15px 35px; }
-            h1 { font-size: 1.7rem; }
-            .subtitle { font-size: 0.9rem; }
-            .container { padding: 40px 15px; }
-            .about-box { padding: 30px 20px; }
-            .nav-container { flex-direction: column; align-items: center; gap: 8px; }
-            .sns-links { flex-direction: column; gap: 10px; }
-            .sns-btn { justify-content: center; }
+            header { padding: 45px 18px 30px; }
+            h1 { font-size: 1.6rem; }
+            .subtitle { font-size: 0.88rem; }
+
+            .container { padding: 35px 16px; }
+            section { margin-bottom: 50px; }
+
+            .about-box {
+                padding: 24px 18px;
+                border-radius: 20px;
+            }
+
+            .about-box p {
+                font-size: 0.92rem;
+                line-height: 1.85;
+                margin-bottom: 14px;
+            }
+
+            .card {
+                padding: 24px 20px;
+                border-radius: 20px;
+            }
+
+            .contact-box {
+                padding: 28px 18px;
+            }
+
+            .sns-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .sns-btn {
+                justify-content: center;
+                padding: 10px 18px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌸 左上に可愛い67ミニロゴ付きのナビゲーション -->
+    <!-- 🌸 ナビゲーションバー -->
     <nav class="global-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -367,14 +458,27 @@
                 </svg>
                 67LABS
             </a>
-            <ul class="nav-links">
-                <li><a href="3line.html">3Line BreakEven</a></li>
-                <li><a href="analytics.html">Analytics Monitor</a></li>
-                <li><a href="linear.html">Linear Regression</a></li>
-                <li><a href="calc.html">計算ツール</a></li>
-            </ul>
+
+            <!-- 三本線ボタン -->
+            <button class="menu-btn" id="menuBtn" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- 🌸 スライドインメニュー -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+        <ul class="drawer-links">
+            <li><a href="index.html" class="active">HOME</a></li>
+            <li><a href="3line.html">3Line BreakEven</a></li>
+            <li><a href="analytics.html">Analytics Monitor</a></li>
+            <li><a href="linear.html">Linear Regression</a></li>
+            <li><a href="calc.html">計算ツール</a></li>
+        </ul>
+    </div>
 
     <!-- ヘッダー -->
     <header>
@@ -384,7 +488,7 @@
 
     <div class="container">
         
-        <!-- なぜ作ったのか -->
+        <!-- ABOUT -->
         <section>
             <h2>ABOUT</h2>
             <div class="about-box">
@@ -395,7 +499,7 @@
             </div>
         </section>
 
-        <!-- ツール・コンテンツ一覧 -->
+        <!-- TOOLS & CONTENTS -->
         <section>
             <h2>TOOLS & CONTENTS</h2>
             <div class="grid-features">
@@ -445,25 +549,24 @@
     <section class="contact-section">
         <div class="contact-box">
             <h2>お問い合わせ</h2>
-            <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
+            <p style="color: var(--text-sub); font-size: 0.88rem; margin-bottom: 22px;">ご意見・ご要望・不具合の報告などはこちらからお送りください。</p>
             
-            <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+            <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 14px; text-align: left;">
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
-                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                    <label style="font-size: 0.82rem; color: #555; display: block; margin-bottom: 4px;">お名前</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
                 </div>
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
-                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                    <label style="font-size: 0.82rem; color: #555; display: block; margin-bottom: 4px;">メールアドレス</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box;">
                 </div>
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
-                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                    <label style="font-size: 0.82rem; color: #555; display: block; margin-bottom: 4px;">メッセージ</label>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; resize: vertical;"></textarea>
                 </div>
-                <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
+                <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 0.95rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
             </form>
 
-            <!-- 🌸 可愛くしたSNSリンク -->
             <div class="sns-links">
                 <a href="https://x.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
                     <span class="sns-badge">𝕏</span>
@@ -482,5 +585,20 @@
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
+    <!-- 🌸 メニュー開閉用JavaScript -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const navDrawer = document.getElementById('navDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function toggleMenu() {
+            menuBtn.classList.toggle('active');
+            navDrawer.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        drawerOverlay.addEventListener('click', toggleMenu);
+    </script>
 </body>
 </html>
