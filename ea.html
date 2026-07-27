@@ -53,42 +53,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
-        .nav-logo {
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: var(--text-dark);
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 800;
+            font-size: 1.05rem;
             letter-spacing: 0.1em;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-sub);
-            font-size: 0.88rem;
-            font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-dark);
-            background-color: rgba(0,0,0,0.04);
-        }
-
-        .nav-links a.active {
+        .nav-brand-logo {
+            width: 32px;
+            height: 32px;
             background-color: var(--primary);
             color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
         }
 
         /* ヘッダー */
@@ -205,14 +193,14 @@
 
         .grid-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .card {
             background: var(--white);
             border-radius: 28px;
-            padding: 40px 30px;
+            padding: 35px 28px;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(237, 229, 219, 0.3);
             transition: all 0.3s ease;
@@ -240,14 +228,14 @@
         .card-purple::before { background: var(--accent-purple); }
 
         .card-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 18px;
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
         }
 
         .card-pink .card-icon { background-color: #fff0ef; }
@@ -256,16 +244,16 @@
         .card-purple .card-icon { background-color: #f8f5fe; }
 
         .card h3 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--text-dark);
         }
 
         .card p {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-sub);
-            line-height: 1.8;
+            line-height: 1.75;
         }
 
         .setup-box {
@@ -344,23 +332,18 @@
             .container { padding: 40px 15px; }
             .setup-box { padding: 35px 20px; }
             .step-list { grid-template-columns: 1fr; gap: 30px; }
-            .nav-container { flex-direction: column; align-items: center; gap: 8px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 共通ナビゲーション（Exit EAがアクティブ） -->
+    <!-- グローバルナビゲーション（ブランドロゴのみ表示） -->
     <nav class="global-nav">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">67LABS</a>
-            <ul class="nav-links">
-                <li><a href="index.html">3Line BreakEven</a></li>
-                <li><a href="analytics.html">Analytics Monitor</a></li>
-                <li><a href="linear.html">Linear Regression</a></li>
-                <li><a href="ea.html" class="active">Exit Manager</a></li>
-                <li><a href="calc.html">計算ツール</a></li>
-            </ul>
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-logo">67</div>
+                <span>67LABS</span>
+            </a>
         </div>
     </nav>
 
@@ -370,7 +353,7 @@
             <span class="brand-logo">67Labs</span>
         </div>
         <h1>67Labs Exit Manager</h1>
-        <p class="subtitle">手動トレーダーのための決済支援EA。<br>TP注文を使わず、利益到達後の建値移動とEAによる自動決済でスキャルピングを強力にサポートします。</p>
+        <p class="subtitle">手動トレーダーのためのポジション管理EA。<br>建値移動、自動決済、ワンクリック決済で、日々のトレードをサポートします。</p>
         
         <div class="cta-container">
             <a href="https://raw.githubusercontent.com/hello67labs/Hello67Labs/main/67Labs_Exit_EA.zip" class="btn-download" download>
@@ -388,9 +371,9 @@
             <h2>FEATURES</h2>
             <div class="grid-features">
                 <div class="card card-pink">
-                    <div class="card-icon">🎯</div>
-                    <h3>手動エントリー＆TP不要決済</h3>
-                    <p>手動エントリーしたポジションを対象に動作。TP（利確注文）を直接置かずに、目標利益に達したタイミングでEAが安全・確実に自動決済します。</p>
+                    <div class="card-icon">⚡</div>
+                    <h3>手動エントリー＆自動決済</h3>
+                    <p>手動エントリーしたポジションを対象に動作。目標利益に達したタイミングでEAが自動決済します。</p>
                 </div>
                 
                 <div class="card card-mint">
@@ -398,17 +381,29 @@
                     <h3>指定利益での自動BE移動</h3>
                     <p>あらかじめ設定した利益幅に到達すると、ストップロス（SL）を自動で建値（BE）へ移動。含み益をしっかり守り、無駄な損失化を防ぎます。</p>
                 </div>
-                
+
                 <div class="card card-blue">
-                    <div class="card-icon">👆</div>
-                    <h3>直感的なラインドラッグ調整</h3>
-                    <p>SL・BE・TPなどの各種ラインをチャート上で直接ドラッグ＆ドロップするだけで直感的に位置調整が可能です。</p>
+                    <div class="card-icon">🔘</div>
+                    <h3>ワンクリック全決済・クローズボタン</h3>
+                    <p>チャート上の操作パネルから各種決済処理（全決済や条件別クローズなど）をワンクリックで即座に行えます。</p>
                 </div>
 
                 <div class="card card-purple">
+                    <div class="card-icon">✂️</div>
+                    <h3>柔軟なハーフクローズ設定</h3>
+                    <p>部分決済（ハーフクローズ）を実行する際、どのポジションから優先して閉じるか（古い順・利益順など）を柔軟に設定できます。</p>
+                </div>
+
+                <div class="card card-pink">
+                    <div class="card-icon">🎛️</div>
+                    <h3>パネル移動＆最小化対応</h3>
+                    <p>チャート上の操作パネルはドラッグ＆ドロップで好きな位置へ移動可能。使わない時は邪魔にならないようコンパクトに最小化できます。</p>
+                </div>
+
+                <div class="card card-mint">
                     <div class="card-icon">🎨</div>
-                    <h3>操作パネル＆テーマ切替</h3>
-                    <p>チャート上にシンプルな操作パネルを表示。気分やチャート背景に合わせて見た目をサッと変更できるテーマ切替機能（Sakura / Sky）を搭載。</p>
+                    <h3>直感的なライン調整＆テーマ切替</h3>
+                    <p>SL・BE・TPなどの各種ラインをドラッグ操作で調整可能。チャートの背景に合わせて見た目を選べるテーマ切替（Sakura / Sky）も搭載。</p>
                 </div>
             </div>
         </section>
