@@ -53,8 +53,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
+            position: relative;
         }
 
         .nav-logo {
@@ -89,6 +88,40 @@
         .nav-links a.active {
             background-color: var(--primary);
             color: var(--white);
+        }
+
+        /* 🌸 ハンバーガーボタン（デフォルト非表示） */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1100;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ハンバーガー開閉用アニメーション */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background-color: var(--primary);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background-color: var(--primary);
         }
 
         /* ヘッダー */
@@ -336,6 +369,7 @@
             letter-spacing: 0.05em;
         }
 
+        /* 🌸 スマホ向けスタイル（レスポンシブ） */
         @media (max-width: 768px) {
             header { padding: 50px 15px 35px; }
             h1 { font-size: 1.8rem; }
@@ -343,7 +377,35 @@
             .container { padding: 40px 15px; }
             .setup-box { padding: 35px 20px; }
             .step-list { grid-template-columns: 1fr; gap: 30px; }
-            .nav-container { flex-direction: column; align-items: center; gap: 8px; }
+
+            /* スマホでハンバーガーメニュー表示 */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 15px 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                border-bottom: 1px solid #ede5db;
+                gap: 10px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                display: block;
+                text-align: center;
+                padding: 10px 0;
+            }
         }
     </style>
 </head>
@@ -353,7 +415,15 @@
     <nav class="global-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">67LABS</a>
-            <ul class="nav-links">
+
+            <!-- ハンバーガーボタン -->
+            <button class="hamburger" id="js-hamburger" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="js-nav-links">
                 <li><a href="index.html">3Line BreakEven</a></li>
                 <li><a href="analytics.html" class="active">Analytics Monitor</a></li>
                 <li><a href="linear.html">Linear Regression</a></li>
@@ -459,5 +529,15 @@
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
+    <!-- 🌸 メニュー開閉用JavaScript -->
+    <script>
+        const hamburger = document.getElementById('js-hamburger');
+        const navLinks = document.getElementById('js-nav-links');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
