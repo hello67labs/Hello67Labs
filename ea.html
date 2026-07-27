@@ -152,7 +152,7 @@
             border-radius: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px; /* 絵文字とテキストの間隔を調整 */
             transition: all 0.2s ease;
         }
 
@@ -164,9 +164,9 @@
 
         .drawer-links .emoji {
             font-size: 1.1rem;
-            width: 24px;
-            display: inline-block;
-            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* 🌸 ヘッダー */
@@ -331,8 +331,9 @@
         .card-pink { border-top: 4px solid var(--primary); }
         .card-mint { border-top: 4px solid var(--accent-mint); }
         .card-blue { border-top: 4px solid var(--accent-blue); }
+        .card-purple { border-top: 4px solid var(--accent-purple); }
 
-        /* 🌸 HOW TO INSTALL (修正：白枠カードデザインに戻しました) */
+        /* 🌸 HOW TO INSTALL */
         .setup-box {
             background: var(--white);
             border-radius: 24px;
@@ -484,14 +485,14 @@
     <!-- 🌸 スライドインメニュー -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <div class="nav-drawer" id="navDrawer">
-        <ul class="nav-links">
-    <li><a href="index.html"><span class="emoji">🏠</span> HOME</a></li>
-    <li><a href="ea.html" class="active"><span class="emoji">🤖</span> 67Labs Exit Manager</a></li>
-    <li><a href="index.html"><span class="emoji">⚖️</span> 3Line BreakEven</a></li>
-    <li><a href="analytics.html"><span class="emoji">📊</span> Analytics Monitor</a></li>
-    <li><a href="linear.html"><span class="emoji">📈</span> Linear Regression</a></li>
-    <li><a href="calc.html"><span class="emoji">🧮</span> 計算ツール</a></li>
-</ul>
+        <ul class="drawer-links">
+            <li><a href="index.html"><span class="emoji">🏠</span> HOME</a></li>
+            <li><a href="ea.html" class="active"><span class="emoji">🤖</span> 67Labs Exit Manager</a></li>
+            <li><a href="index.html"><span class="emoji">⚖️</span> 3Line BreakEven</a></li>
+            <li><a href="analytics.html"><span class="emoji">📊</span> Analytics Monitor</a></li>
+            <li><a href="linear.html"><span class="emoji">📈</span> Linear Regression</a></li>
+            <li><a href="calc.html"><span class="emoji">🧮</span> 計算ツール</a></li>
+        </ul>
     </div>
 
     <!-- ヘッダー -->
@@ -582,8 +583,6 @@
         </section>
     </div>
 
-
-
     <!-- お問い合わせ -->
     <section class="contact-section">
         <div class="contact-box">
@@ -637,4 +636,3 @@
     </script>
 </body>
 </html>
-
