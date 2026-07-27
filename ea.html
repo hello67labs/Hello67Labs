@@ -187,11 +187,20 @@
             border-bottom: 2px dashed #ede5db;
         }
 
+        .brand-logo {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--primary-hover);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
         .subtitle {
             font-size: 0.95rem;
             font-weight: 600;
             color: var(--text-sub);
-            margin-bottom: 8px;
+            margin: 12px 0 25px;
+            line-height: 1.7;
         }
 
         h1 {
@@ -199,6 +208,55 @@
             font-weight: 800;
             color: var(--text-dark);
             letter-spacing: -0.02em;
+        }
+
+        /* 🌸 CTA・ダウンロードボタン領域 */
+        .cta-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px 36px;
+            border-radius: 40px;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(255, 181, 176, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 181, 176, 0.6);
+        }
+
+        /* 🌸 アイコン巨大化防止！ */
+        .btn-download svg {
+            width: 20px !important;
+            height: 20px !important;
+            min-width: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .version-tag {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid #ede5db;
         }
 
         .container {
@@ -230,27 +288,90 @@
             border-radius: 10px;
         }
 
-        /* 汎用コンテンツボックス（ABOUT風デザイン） */
-        .content-box {
+        /* 🌸 FEATURES (カードのグリッドレイアウト) */
+        .grid-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(237, 229, 219, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(120, 90, 80, 0.08);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        .card-pink { border-top: 4px solid var(--primary); }
+        .card-mint { border-top: 4px solid var(--accent-mint); }
+        .card-blue { border-top: 4px solid var(--accent-blue); }
+        .card-purple { border-top: 4px solid var(--accent-purple); }
+
+        /* 🌸 HOW TO INSTALL (ステップボックス) */
+        .setup-box {
             background: var(--white);
             border-radius: 24px;
-            padding: 35px 30px;
+            padding: 40px 30px;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(237, 229, 219, 0.3);
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
+            border: 1px solid rgba(237, 229, 219, 0.4);
         }
 
-        .content-box p {
+        .step-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .step-item {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .step-number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .step-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             color: var(--text-dark);
-            font-size: 0.98rem;
-            line-height: 1.95;
-            margin-bottom: 18px;
         }
 
-        .content-box p:last-child {
-            margin-bottom: 0;
+        .step-item p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.6;
         }
 
         /* お問い合わせ */
@@ -333,7 +454,8 @@
             .subtitle { font-size: 0.88rem; }
             .container { padding: 35px 16px; }
             section { margin-bottom: 50px; }
-            .content-box { padding: 24px 18px; border-radius: 20px; }
+            .setup-box { padding: 30px 18px; }
+            .step-list { grid-template-columns: 1fr; }
             .contact-box { padding: 28px 18px; }
             .sns-links { flex-direction: column; gap: 10px; }
             .sns-btn { justify-content: center; padding: 10px 18px; }
@@ -362,7 +484,6 @@
     </nav>
 
     <!-- 🌸 スライドインメニュー -->
-    <!-- ※ 表示しているページに合わせて class="active" の付与位置を変更してください -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <div class="nav-drawer" id="navDrawer">
         <ul class="drawer-links">
@@ -375,7 +496,7 @@
         </ul>
     </div>
 
-<!-- ヘッダー -->
+    <!-- ヘッダー -->
     <header>
         <div class="logo-area">
             <span class="brand-logo">67Labs</span>
@@ -463,9 +584,6 @@
         </section>
     </div>
 
-
-
-
     <!-- お問い合わせ -->
     <section class="contact-section">
         <div class="contact-box">
@@ -489,7 +607,7 @@
             </form>
 
             <div class="sns-links">
-                <a href="https://note.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
+                <a href="https://note.com/" target="_blank" rel="noopener noreferrer" class="sns-btn">
                     <span class="sns-badge">📝</span>
                     <span>Official note</span>
                 </a>
