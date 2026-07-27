@@ -16,6 +16,7 @@
             --accent-mint: #d0f0c0;
             --accent-blue: #cbe3f8;
             --accent-purple: #e1d5f5;
+            --accent-yellow: #fce4ad; /* ✨ 新規追加：EAカード用のアクセントカラー */
             --text-dark: #4a4543;
             --text-sub: #7d7571;
             --white: #ffffff;
@@ -302,6 +303,7 @@
         .card-mint::before { background: var(--accent-mint); }
         .card-blue::before { background: var(--accent-blue); }
         .card-purple::before { background: var(--accent-purple); }
+        .card-yellow::before { background: var(--accent-yellow); } /* ✨ 新規追加 */
 
         .card-icon {
             width: 52px;
@@ -318,6 +320,7 @@
         .card-mint .card-icon { background-color: #f0faf2; }
         .card-blue .card-icon { background-color: #f0f7fd; }
         .card-purple .card-icon { background-color: #f7f0fd; }
+        .card-yellow .card-icon { background-color: #fef9ed; } /* ✨ 新規追加 */
 
         .card h3 {
             font-size: 1.15rem;
@@ -484,6 +487,7 @@
     <div class="nav-drawer" id="navDrawer">
         <ul class="drawer-links">
             <li><a href="index.html" class="active"><span class="emoji">🏠</span> HOME</a></li>
+            <li><a href="ea.html"><span class="emoji">🤖</span> MT5 EA (自動売買)</a></li>
             <li><a href="3line.html"><span class="emoji">⚖️</span> 3Line BreakEven</a></li>
             <li><a href="analytics.html"><span class="emoji">📊</span> Analytics Monitor</a></li>
             <li><a href="linear.html"><span class="emoji">📈</span> Linear Regression</a></li>
@@ -515,6 +519,16 @@
             <h2>TOOLS & CONTENTS</h2>
             <div class="grid-features">
                 
+                <!-- 🤖 EA（自動売買）カード -->
+                <a href="ea.html" class="card card-yellow">
+                    <div>
+                        <div class="card-icon">🤖</div>
+                        <h3>MT5 EA (自動売買)</h3>
+                        <p>ルールの徹底と効率的な運用のための自動売買(EA)プログラム。設定の調整で自分好みのロジックに。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
+
                 <a href="3line.html" class="card card-pink">
                     <div>
                         <div class="card-icon">⚖️</div>
@@ -579,10 +593,7 @@
             </form>
 
             <div class="sns-links">
-                <a href="https://x.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
-                    <span class="sns-badge">𝕏</span>
-                    <span>Official X</span>
-                </a>
+                
                 <a href="https://note.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
                     <span class="sns-badge">📝</span>
                     <span>Official note</span>
