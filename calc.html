@@ -60,6 +60,16 @@
             color: var(--text-dark);
             text-decoration: none;
             letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            filter: drop-shadow(0 2px 4px rgba(255, 181, 176, 0.4));
         }
 
         .container {
@@ -299,7 +309,13 @@
     <!-- 共通ナビゲーション -->
     <nav class="global-nav">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">67LABS</a>
+            <a href="index.html" class="nav-logo">
+                <svg class="nav-logo-icon" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#ffb5b0"/>
+                    <text x="50" y="62" font-size="45" font-family="-apple-system, sans-serif" font-weight="800" fill="#ffffff" text-anchor="middle">67</text>
+                </svg>
+                67LABS
+            </a>
         </div>
     </nav>
 
