@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ページごとにタイトルを変更してください -->
-    <title>67Labs Exit Manager - 67Labs</title>
+    <title>3Line BreakEven for MT5 - 67Labs</title>
 
-    <!-- ファビコンの設定 -->
+    <!-- ファビコン設定 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffb5b0%22/><text x=%2250%22 y=%2258%22 font-size=%2250%22 font-weight=%22bold%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>67</text></svg>">
 
     <style>
@@ -76,7 +75,7 @@
             filter: drop-shadow(0 2px 4px rgba(255, 181, 176, 0.4));
         }
 
-        /* 🌸 三本線（ハンバーガーボタン・左配置） */
+        /* 🌸 ハンバーガーボタン */
         .menu-btn {
             background: none;
             border: none;
@@ -97,17 +96,11 @@
             transition: all 0.3s ease;
         }
 
-        .menu-btn.active span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-        .menu-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .menu-btn.active span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
+        .menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-btn.active span:nth-child(2) { opacity: 0; }
+        .menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* 🌸 スライドインメニュー（左側から出る仕様） */
+        /* 🌸 スライドインメニュー */
         .nav-drawer {
             position: fixed;
             top: 0;
@@ -123,9 +116,7 @@
             flex-direction: column;
         }
 
-        .nav-drawer.active {
-            left: 0;
-        }
+        .nav-drawer.active { left: 0; }
 
         .drawer-overlay {
             position: fixed;
@@ -179,7 +170,7 @@
             text-align: center;
         }
 
-        /* ヘッダー */
+        /* 🌸 ヘッダー領域 */
         header {
             text-align: center;
             padding: 60px 20px 45px;
@@ -187,12 +178,30 @@
             border-bottom: 2px dashed #ede5db;
         }
 
+        .logo-area {
+            margin-bottom: 12px;
+        }
+
+        /* 修正：タイトルの上のロゴ文字を黒（#4a4543）に指定 */
         .brand-logo {
+            display: inline-block;
             font-size: 0.85rem;
             font-weight: 800;
-            color: var(--primary-hover);
+            color: var(--text-dark); /* ★ここを黒色に指定★ */
             letter-spacing: 0.15em;
             text-transform: uppercase;
+            background-color: var(--white);
+            padding: 6px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid #ede5db;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
@@ -203,14 +212,7 @@
             line-height: 1.7;
         }
 
-        h1 {
-            font-size: 2.1rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        /* 🌸 CTA・ダウンロードボタン領域 */
+        /* 🌸 ボタン・DLリンク */
         .cta-container {
             display: flex;
             flex-direction: column;
@@ -241,7 +243,6 @@
             box-shadow: 0 8px 25px rgba(255, 181, 176, 0.6);
         }
 
-        /* 🌸 アイコン巨大化防止！ */
         .btn-download svg {
             width: 20px !important;
             height: 20px !important;
@@ -259,6 +260,7 @@
             border: 1px solid #ede5db;
         }
 
+        /* 🌸 コンテナ */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -288,7 +290,7 @@
             border-radius: 10px;
         }
 
-        /* 🌸 FEATURES (カードのグリッドレイアウト) */
+        /* 🌸 FEATURES */
         .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -331,50 +333,8 @@
         .card-pink { border-top: 4px solid var(--primary); }
         .card-mint { border-top: 4px solid var(--accent-mint); }
         .card-blue { border-top: 4px solid var(--accent-blue); }
-        .card-purple { border-top: 4px solid var(--accent-purple); }
 
-        /* 🌸 HOW TO INSTALL (ステップボックス) */
-        .setup-box {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 40px 30px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(237, 229, 219, 0.4);
-        }
-
-        .step-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .step-item {
-            background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 16px;
-        }
-
-        .step-number {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-
-        .step-item h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .step-item p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            line-height: 1.6;
-        }
-
-        /* お問い合わせ */
+        /* 🌸 お問い合わせ */
         .contact-section {
             padding: 50px 20px;
             background-color: #f7f9fc;
@@ -447,15 +407,12 @@
             letter-spacing: 0.05em;
         }
 
-        /* スマホ対応 */
         @media (max-width: 768px) {
             header { padding: 45px 18px 30px; }
             h1 { font-size: 1.6rem; }
             .subtitle { font-size: 0.88rem; }
             .container { padding: 35px 16px; }
             section { margin-bottom: 50px; }
-            .setup-box { padding: 30px 18px; }
-            .step-list { grid-template-columns: 1fr; }
             .contact-box { padding: 28px 18px; }
             .sns-links { flex-direction: column; gap: 10px; }
             .sns-btn { justify-content: center; padding: 10px 18px; }
@@ -464,7 +421,7 @@
 </head>
 <body>
 
-    <!-- 🌸 ナビゲーションバー -->
+    <!-- 🌸 ナビゲーション -->
     <nav class="global-nav">
         <div class="nav-container">
             <button class="menu-btn" id="menuBtn" aria-label="メニューを開く">
@@ -488,8 +445,8 @@
     <div class="nav-drawer" id="navDrawer">
         <ul class="drawer-links">
             <li><a href="index.html"><span class="emoji">🏠</span> HOME</a></li>
-            <li><a href="ea.html" class="active"><span class="emoji">🤖</span> 67Labs Exit Manager</a></li>
-            <li><a href="3line.html"><span class="emoji">⚖️</span> 3Line BreakEven</a></li>
+            <li><a href="ea.html"><span class="emoji">🤖</span> 67Labs Exit Manager</a></li>
+            <li><a href="3line.html" class="active"><span class="emoji">⚖️</span> 3Line BreakEven</a></li>
             <li><a href="analytics.html"><span class="emoji">📊</span> Analytics Monitor</a></li>
             <li><a href="linear.html"><span class="emoji">📈</span> Linear Regression</a></li>
             <li><a href="calc.html"><span class="emoji">🧮</span> 計算ツール</a></li>
@@ -584,6 +541,7 @@
         </section>
     </div>
 
+
     <!-- お問い合わせ -->
     <section class="contact-section">
         <div class="contact-box">
@@ -620,7 +578,7 @@
         <p>&copy; 2026 67Labs. All rights reserved.</p>
     </footer>
 
-    <!-- 🌸 メニュー開閉用JavaScript -->
+    <!-- JavaScript -->
     <script>
         const menuBtn = document.getElementById('menuBtn');
         const navDrawer = document.getElementById('navDrawer');
