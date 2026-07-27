@@ -53,6 +53,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-direction: row-reverse; /* ハンバーガーを左、ロゴを右（または中央寄せ用）に配置 */
         }
 
         .nav-brand {
@@ -62,7 +63,7 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 800;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             letter-spacing: 0.1em;
         }
 
@@ -73,8 +74,8 @@
             display: block;
         }
 
-       /* 🌸 三本線（ハンバーガーボタン・左配置） */
-        .menu-btn {
+        /* 🌸 三本線（ハンバーガーボタン・左配置） */
+        .hamburger-btn {
             background: none;
             border: none;
             cursor: pointer;
@@ -85,7 +86,7 @@
             z-index: 1002;
         }
 
-        .menu-btn span {
+        .hamburger-btn span {
             display: block;
             width: 22px;
             height: 2px;
@@ -95,13 +96,13 @@
         }
 
         /* メニューが開いたときの三本線の変形（X印） */
-        .menu-btn.active span:nth-child(1) {
+        .hamburger-btn.active span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
-        .menu-btn.active span:nth-child(2) {
+        .hamburger-btn.active span:nth-child(2) {
             opacity: 0;
         }
-        .menu-btn.active span:nth-child(3) {
+        .hamburger-btn.active span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
         }
 
@@ -119,13 +120,29 @@
             transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
+            gap: 12px;
         }
 
         .nav-drawer.active {
             left: 0;
         }
 
-        .drawer-overlay {
+        .nav-drawer a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-drawer a:hover {
+            background-color: #fff0ef;
+            color: var(--primary-hover);
+        }
+
+        .nav-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -139,43 +156,11 @@
             transition: all 0.3s ease;
         }
 
-        .drawer-overlay.active {
+        .nav-overlay.active {
             opacity: 1;
             visibility: visible;
         }
 
-        .drawer-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .drawer-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-            font-weight: 700;
-            padding: 12px 16px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .drawer-links a:hover,
-        .drawer-links a.active {
-            background-color: #fff0ef;
-            color: var(--primary-hover);
-        }
-
-        .drawer-links .emoji {
-            font-size: 1.1rem;
-            width: 24px;
-            display: inline-block;
-            text-align: center;
-        }
         /* ヘッダー */
         header {
             text-align: center;
@@ -437,9 +422,12 @@
     <!-- グローバルナビゲーション -->
     <nav class="global-nav">
         <div class="nav-container">
+            <!-- ロゴ（右側配置） -->
             <a href="index.html" class="nav-brand">
-                <img src="logo.png" alt="67LABS">
+                <img src="logo.png" alt="67LABS" onerror="this.style.display='none'">
+                <span>67LABS</span>
             </a>
+            <!-- ハンバーガーボタン（左側配置） -->
             <button class="hamburger-btn" id="hamburgerBtn" aria-label="メニューを開く">
                 <span></span>
                 <span></span>
