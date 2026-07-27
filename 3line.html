@@ -306,17 +306,37 @@
 
         .contact-section {
             padding: 60px 20px;
-            background-color: #f7f9fc;
+            background-color: var(--bg-color);
             text-align: center;
         }
 
         .contact-box {
             max-width: 500px;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
             padding: 35px 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border-radius: 28px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(237, 229, 219, 0.3);
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(255, 181, 176, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
         footer {
@@ -436,18 +456,18 @@
             
             <form action="https://formspree.io/f/xrenedjj" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">お名前</label>
-                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                    <label style="font-size: 0.85rem; color: var(--text-sub); display: block; margin-bottom: 5px;">お名前</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ede5db; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background: var(--bg-color);">
                 </div>
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メールアドレス</label>
-                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                    <label style="font-size: 0.85rem; color: var(--text-sub); display: block; margin-bottom: 5px;">メールアドレス</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ede5db; border-radius: 8px; font-size: 1rem; box-sizing: border-box; background: var(--bg-color);">
                 </div>
                 <div>
-                    <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">メッセージ</label>
-                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
+                    <label style="font-size: 0.85rem; color: var(--text-sub); display: block; margin-bottom: 5px;">メッセージ</label>
+                    <textarea name="message" rows="4" required style="width: 100%; padding: 10px; border: 1px solid #ede5db; border-radius: 8px; font-size: 1rem; box-sizing: border-box; resize: vertical; background: var(--bg-color);"></textarea>
                 </div>
-                <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: bold; margin-top: 5px; transition: background 0.2s;">送信する</button>
+                <button type="submit" class="btn-submit">送信する</button>
             </form>
         </div>
     </section>
