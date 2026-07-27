@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>67Labs Trading System EA for MT5 - 67Labs</title>
+    <title>67Labs Exit Manager for MT5 - 67Labs</title>
 
     <!-- 🌸 ファビコン設定（67Labsデザイン） -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffb5b0%22/><text x=%2250%22 y=%2262%22 font-size=%2245%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>67</text></svg>">
@@ -125,11 +125,10 @@
             margin-bottom: 12px;
         }
 
-        /* サブタイトルの改行崩れ防止 */
         .subtitle {
             font-size: 1.1rem;
             color: var(--text-sub);
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto 35px;
             font-weight: 500;
             word-break: keep-all;
@@ -238,6 +237,7 @@
         .card-pink::before { background: var(--primary); }
         .card-mint::before { background: var(--accent-mint); }
         .card-blue::before { background: var(--accent-blue); }
+        .card-purple::before { background: var(--accent-purple); }
 
         .card-icon {
             width: 55px;
@@ -253,6 +253,7 @@
         .card-pink .card-icon { background-color: #fff0ef; }
         .card-mint .card-icon { background-color: #f0faf2; }
         .card-blue .card-icon { background-color: #f0f7fd; }
+        .card-purple .card-icon { background-color: #f8f5fe; }
 
         .card h3 {
             font-size: 1.2rem;
@@ -349,7 +350,7 @@
 </head>
 <body>
 
-    <!-- 共通ナビゲーション（EAがアクティブ） -->
+    <!-- 共通ナビゲーション（Exit EAがアクティブ） -->
     <nav class="global-nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">67LABS</a>
@@ -357,7 +358,7 @@
                 <li><a href="index.html">3Line BreakEven</a></li>
                 <li><a href="analytics.html">Analytics Monitor</a></li>
                 <li><a href="linear.html">Linear Regression</a></li>
-                <li><a href="ea.html" class="active">Trading EA</a></li>
+                <li><a href="ea.html" class="active">Exit Manager</a></li>
                 <li><a href="calc.html">計算ツール</a></li>
             </ul>
         </div>
@@ -368,11 +369,11 @@
         <div class="logo-area">
             <span class="brand-logo">67Labs</span>
         </div>
-        <h1>Trading System EA for MT5</h1>
-        <p class="subtitle">ロジックに基づいたスマートな自動売買。堅実なリスク管理と高度なポジショニングを実現。</p>
+        <h1>67Labs Exit Manager</h1>
+        <p class="subtitle">手動トレーダーのための決済支援EA。<br>TP注文を使わず、利益到達後の建値移動とEAによる自動決済でスキャルピングを強力にサポートします。</p>
         
         <div class="cta-container">
-            <a href="https://raw.githubusercontent.com/hello67labs/Hello67Labs/main/67Labs_Trading_EA.zip" class="btn-download" download>
+            <a href="https://raw.githubusercontent.com/hello67labs/Hello67Labs/main/67Labs_Exit_EA.zip" class="btn-download" download>
                 <svg viewBox="0 0 24 24">
                     <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
                 </svg>
@@ -387,21 +388,27 @@
             <h2>FEATURES</h2>
             <div class="grid-features">
                 <div class="card card-pink">
-                    <div class="card-icon">🤖</div>
-                    <h3>自動エントリー・決済</h3>
-                    <p>独自のテクニカルロジックに基づき、エントリーからブレイクイーブン、利確・損切りまでを完全自動で実行します。</p>
+                    <div class="card-icon">🎯</div>
+                    <h3>手動エントリー＆TP不要決済</h3>
+                    <p>手動エントリーしたポジションを対象に動作。TP（利確注文）を直接置かずに、目標利益に達したタイミングでEAが安全・確実に自動決済します。</p>
                 </div>
                 
                 <div class="card card-mint">
                     <div class="card-icon">🛡️</div>
-                    <h3>厳格な資金・リスク管理</h3>
-                    <p>口座残高に応じた最適な許容リスク計算とスプレッドフィルターを搭載。急変動時の不必要なエントリーを防ぎます。</p>
+                    <h3>指定利益での自動BE移動</h3>
+                    <p>あらかじめ設定した利益幅に到達すると、ストップロス（SL）を自動で建値（BE）へ移動。含み益をしっかり守り、無駄な損失化を防ぎます。</p>
                 </div>
                 
                 <div class="card card-blue">
-                    <div class="card-icon">⚙️</div>
-                    <h3>柔軟なパラメータ設定</h3>
-                    <p>トレード時間帯の制限、トレーリングストップ、各種フィルターのON/OFFなど、スタイルに合わせた調整が可能です。</p>
+                    <div class="card-icon">👆</div>
+                    <h3>直感的なラインドラッグ調整</h3>
+                    <p>SL・BE・TPなどの各種ラインをチャート上で直接ドラッグ＆ドロップするだけで直感的に位置調整が可能です。</p>
+                </div>
+
+                <div class="card card-purple">
+                    <div class="card-icon">🎨</div>
+                    <h3>操作パネル＆テーマ切替</h3>
+                    <p>チャート上にシンプルな操作パネルを表示。気分やチャート背景に合わせて見た目をサッと変更できるテーマ切替機能（Sakura / Sky）を搭載。</p>
                 </div>
             </div>
         </section>
@@ -412,22 +419,22 @@
                 <div class="step-item">
                     <div class="step-number">01</div>
                     <h4>ダウンロード</h4>
-                    <p>上のダウンロードボタンからZIPファイルを取得し、解凍します。</p>
+                    <p>上のダウンロードボタンからZIPファイルを取得し解凍します。</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">02</div>
                     <h4>フォルダを開く</h4>
-                    <p>MT5の「ファイル」メニューから「データフォルダを開く」を選択します。</p>
+                    <p>MT5の「ファイル」＞「データフォルダを開く」から「MQL5」＞「Experts」へ。</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">03</div>
-                    <h4>配置する</h4>
-                    <p>「MQL5」＞「Experts」フォルダにEAファイル(.ex5)を格納します。</p>
+                    <h4>チャートごとに適用</h4>
+                    <p>監視・自動決済したい通貨ペアのチャートをそれぞれ開き、各チャートへEAを適用します。</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">04</div>
-                    <h4>アルゴリズム許可</h4>
-                    <p>MT5の上部メニュー「アルゴリズム取引」をONにし、チャートへ適用します。</p>
+                    <h4>アルゴリズム取引ON</h4>
+                    <p>MT5上部の「アルゴリズム取引」ボタンを有効にすればセットアップ完了です。</p>
                 </div>
             </div>
         </section>
