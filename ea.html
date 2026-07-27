@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3Line BreakEven for MT5 - 67Labs</title>
+    <title>3Line BreakEven - 67Labs</title>
 
-    <!-- ファビコン設定 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffb5b0%22/><text x=%2250%22 y=%2258%22 font-size=%2250%22 font-weight=%22bold%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>67</text></svg>">
 
     <style>
@@ -37,7 +36,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 🌸 グローバルナビゲーション */
+        /* 🌸 ナビゲーション */
         .global-nav {
             background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
@@ -100,7 +99,7 @@
         .menu-btn.active span:nth-child(2) { opacity: 0; }
         .menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* 🌸 スライドインメニュー */
+        /* 🌸 ドロワーメニュー */
         .nav-drawer {
             position: fixed;
             top: 0;
@@ -170,7 +169,7 @@
             text-align: center;
         }
 
-        /* 🌸 ヘッダー領域 */
+        /* 🌸 ヘッダー */
         header {
             text-align: center;
             padding: 60px 20px 45px;
@@ -182,12 +181,11 @@
             margin-bottom: 12px;
         }
 
-        /* 修正：タイトルの上のロゴ文字を黒（#4a4543）に指定 */
         .brand-logo {
             display: inline-block;
             font-size: 0.85rem;
             font-weight: 800;
-            color: var(--text-dark); /* ★ここを黒色に指定★ */
+            color: var(--text-dark);
             letter-spacing: 0.15em;
             text-transform: uppercase;
             background-color: var(--white);
@@ -212,7 +210,7 @@
             line-height: 1.7;
         }
 
-        /* 🌸 ボタン・DLリンク */
+        /* 🌸 ボタン */
         .cta-container {
             display: flex;
             flex-direction: column;
@@ -260,7 +258,7 @@
             border: 1px solid #ede5db;
         }
 
-        /* 🌸 コンテナ */
+        /* 🌸 レイアウト */
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -290,7 +288,7 @@
             border-radius: 10px;
         }
 
-        /* 🌸 FEATURES */
+        /* 🌸 FEATURES (カードグリッド) */
         .grid-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -333,6 +331,47 @@
         .card-pink { border-top: 4px solid var(--primary); }
         .card-mint { border-top: 4px solid var(--accent-mint); }
         .card-blue { border-top: 4px solid var(--accent-blue); }
+
+        /* 🌸 HOW TO INSTALL (修正：白枠カードデザインに戻しました) */
+        .setup-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(237, 229, 219, 0.5);
+        }
+
+        .step-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .step-item {
+            background-color: var(--bg-color);
+            padding: 24px 20px;
+            border-radius: 16px;
+        }
+
+        .step-number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .step-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .step-item p {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
 
         /* 🌸 お問い合わせ */
         .contact-section {
@@ -413,6 +452,8 @@
             .subtitle { font-size: 0.88rem; }
             .container { padding: 35px 16px; }
             section { margin-bottom: 50px; }
+            .setup-box { padding: 24px 16px; }
+            .step-list { grid-template-columns: 1fr; }
             .contact-box { padding: 28px 18px; }
             .sns-links { flex-direction: column; gap: 10px; }
             .sns-btn { justify-content: center; padding: 10px 18px; }
@@ -542,6 +583,7 @@
     </div>
 
 
+
     <!-- お問い合わせ -->
     <section class="contact-section">
         <div class="contact-box">
@@ -595,3 +637,4 @@
     </script>
 </body>
 </html>
+
