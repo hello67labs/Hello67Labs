@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>67Labs - トレーダーの「あったらいいな」をかたちに</title>
 
-   <!-- ファビコンの設定 -->
+    <!-- ファビコンの設定 -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23ffb5b0%22/><text x=%2250%22 y=%2258%22 font-size=%2250%22 font-weight=%22bold%22 fill=%22%23ffffff%22 text-anchor=%22middle%22>67</text></svg>">
 
     <style>
@@ -16,7 +16,7 @@
             --accent-mint: #d0f0c0;
             --accent-blue: #cbe3f8;
             --accent-purple: #e1d5f5;
-            --accent-yellow: #fce4ad; /* ✨ 新規追加：EAカード用のアクセントカラー */
+            --accent-yellow: #fce4ad; 
             --text-dark: #4a4543;
             --text-sub: #7d7571;
             --white: #ffffff;
@@ -96,7 +96,6 @@
             transition: all 0.3s ease;
         }
 
-        /* メニューが開いたときの三本線の変形（X印） */
         .menu-btn.active span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
@@ -163,7 +162,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap; /* 強制的に一行におさめる設定 */
+            white-space: nowrap;
             transition: all 0.2s ease;
         }
 
@@ -304,7 +303,7 @@
         .card-mint::before { background: var(--accent-mint); }
         .card-blue::before { background: var(--accent-blue); }
         .card-purple::before { background: var(--accent-purple); }
-        .card-yellow::before { background: var(--accent-yellow); } /* ✨ 新規追加 */
+        .card-yellow::before { background: var(--accent-yellow); }
 
         .card-icon {
             width: 52px;
@@ -321,7 +320,7 @@
         .card-mint .card-icon { background-color: #f0faf2; }
         .card-blue .card-icon { background-color: #f0f7fd; }
         .card-purple .card-icon { background-color: #f7f0fd; }
-        .card-yellow .card-icon { background-color: #fef9ed; } /* ✨ 新規追加 */
+        .card-yellow .card-icon { background-color: #fef9ed; }
 
         .card h3 {
             font-size: 1.15rem;
@@ -419,7 +418,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* 🌸 スマホ専用スタイル（文字の詰め感調整） */
+        /* 🌸 スマホ専用スタイル */
         @media (max-width: 768px) {
             header { padding: 45px 18px 30px; }
             h1 { font-size: 1.6rem; }
@@ -462,17 +461,14 @@
 </head>
 <body>
 
-    <!-- 🌸 ナビゲーションバー（ボタンを左、ロゴを右隣に） -->
+    <!-- 🌸 ナビゲーションバー -->
     <nav class="global-nav">
         <div class="nav-container">
-            <!-- 左側の三本線ボタン -->
             <button class="menu-btn" id="menuBtn" aria-label="メニューを開く">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
-            <!-- ロゴ -->
             <a href="index.html" class="nav-logo">
                 <svg class="nav-logo-icon" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="#ffb5b0"/>
@@ -483,14 +479,14 @@
         </div>
     </nav>
 
-    <!-- 🌸 スライドインメニュー（絵文字付き＆左から出る） -->
+    <!-- 🌸 スライドインメニュー -->
     <div class="drawer-overlay" id="drawerOverlay"></div>
     <div class="nav-drawer" id="navDrawer">
         <ul class="drawer-links">
             <li><a href="index.html" class="active"><span class="emoji">🏠</span> HOME</a></li>
             <li><a href="ea.html"><span class="emoji">🤖</span> 67Labs_Exit_EA</a></li>
             <li><a href="BE.html"><span class="emoji">⚖️</span> 67_BreakEven</a></li>
-            <li><a href="shved_supply_and_demand.html" class="emoji"><span class="emoji">📦</span> 67_Supply and Demand</a></li>
+            <li><a href="shved_supply_and_demand.html"><span class="emoji">🎯</span> 67_Supply and Demand</a></li>
             <li><a href="analytics.html"><span class="emoji">📊</span> 67_Analytics</a></li>
             <li><a href="linear.html"><span class="emoji">📈</span> 67_Linear Regression</a></li>
             <li><a href="calc.html"><span class="emoji">🧮</span> 計算ツール</a></li>
@@ -531,6 +527,7 @@
                     <span class="card-link-text">詳細を見る →</span>
                 </a>
 
+                <!-- ⚖️ BreakEvenカード -->
                 <a href="BE.html" class="card card-pink">
                     <div>
                         <div class="card-icon">⚖️</div>
@@ -540,6 +537,17 @@
                     <span class="card-link-text">詳細を見る →</span>
                 </a>
 
+                <!-- 🎯 Supply and Demandカード（新規追加） -->
+                <a href="shved_supply_and_demand.html" class="card card-mint">
+                    <div>
+                        <div class="card-icon">🎯</div>
+                        <h3>67_Supply and Demand</h3>
+                        <p>相場のサプライ（供給）とディマンド（需要）のゾーンを自動検出し、環境認識を強力にサポートするインジケーター。</p>
+                    </div>
+                    <span class="card-link-text">詳細を見る →</span>
+                </a>
+
+                <!-- 📊 Analyticsカード -->
                 <a href="analytics.html" class="card card-mint">
                     <div>
                         <div class="card-icon">📊</div>
@@ -549,6 +557,7 @@
                     <span class="card-link-text">詳細を見る →</span>
                 </a>
 
+                <!-- 📈 Linear Regressionカード -->
                 <a href="linear.html" class="card card-blue">
                     <div>
                         <div class="card-icon">📈</div>
@@ -558,6 +567,7 @@
                     <span class="card-link-text">詳細を見る →</span>
                 </a>
 
+                <!-- 🧮 計算ツールカード -->
                 <a href="calc.html" class="card card-purple">
                     <div>
                         <div class="card-icon">🧮</div>
@@ -595,7 +605,6 @@
             </form>
 
             <div class="sns-links">
-                
                 <a href="https://note.com/あなたのアカウント" target="_blank" rel="noopener noreferrer" class="sns-btn">
                     <span class="sns-badge">📝</span>
                     <span>Official note</span>
