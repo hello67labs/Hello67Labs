@@ -36,6 +36,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        body.no-scroll {
+            overflow: hidden;
+        }
+
         /* 🌸 ナビゲーション */
         .global-nav {
             background-color: rgba(255, 255, 255, 0.9);
@@ -110,6 +114,7 @@
             box-shadow: 5px 0 25px rgba(0, 0, 0, 0.08);
             z-index: 1001;
             padding: 80px 20px 40px;
+            overflow-y: auto;
             transition: left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
@@ -494,7 +499,7 @@
             <li><a href="analytics.html"><span class="emoji">📊</span> 67_Analytics</a></li>
             <li><a href="linear.html"><span class="emoji">🥳</span> 67_Linear Regression</a></li>
             <li><a href="67_Custom_MA.html"><span class="emoji">🎀</span> 67_Custom_MA</a></li>
-        　  <li><a href="67_Position_Tool.html" class="active"><span class="emoji">😊</span> 67_Position_Tool</a></li>
+            <li><a href="67_Position_Tool.html" class="active"><span class="emoji">😊</span> 67_Position_Tool</a></li>
             <li><a href="calc.html"><span class="emoji">🧮</span> 計算ツール</a></li>
         </ul>
     </div>
@@ -615,10 +620,21 @@
             menuBtn.classList.toggle('active');
             navDrawer.classList.toggle('active');
             drawerOverlay.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
         }
 
         menuBtn.addEventListener('click', toggleMenu);
         drawerOverlay.addEventListener('click', toggleMenu);
+
+        // ドロワー内のリンクをクリックした時にもメニューを閉じるように設定
+        const drawerLinks = document.querySelectorAll('.drawer-links a');
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navDrawer.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
     </script>
 </body>
 </html>
